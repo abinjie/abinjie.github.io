@@ -33,14 +33,21 @@ def eyebrow(text):
     return f'<div class="eyebrow">{esc(text)}</div>'
 
 
-def write_page(path, title, description, body, active="", og_type="website", canonical=None):
+def write_page(path, title, description, body, active="", og_type="website", canonical=None, social_key="home"):
     nav_items = [("/", "首页", "home"), ("/projects/", "项目", "projects"), ("/list/", "笔记", "notes"), ("/about/", "关于", "about")]
     nav = ''.join(f'<a href="{url}"' + (' aria-current="page"' if key == active else '') + f'>{label}</a>' for url, label, key in nav_items)
     canonical = canonical or path
+    social_alt = {
+        'home': '宾杰的机器人仿真与算法博客：在仿真中，走向真实世界，配以协作机械臂概念插画。',
+        'roboarena': 'RoboArena 机器人模型测评平台：本地物理仿真、云端 3DGS 渲染、VLA 推理与控制执行。',
+    }[social_key]
+    social_path = f'/assets/social/{social_key}.png'
+    social_version = hashlib.sha256((ROOT / social_path.lstrip('/')).read_bytes()).hexdigest()[:12]
     output = TEMPLATE.substitute(
         title=esc(title + " · 宾杰" if title != "宾杰 · 机器人工程师，仿真与算法" else title),
         description=esc(description), canonical=BASE_URL + quote(canonical, safe="/"),
         body=body, navigation=nav, main_class="wrap", og_type=og_type, asset_version=ASSET_VERSION,
+        social_image=BASE_URL + social_path + '?v=' + social_version, social_alt=esc(social_alt),
     )
     target = ROOT / (path.lstrip('/') + 'index.html' if path.endswith('/') else path.lstrip('/'))
     target.parent.mkdir(parents=True, exist_ok=True)
@@ -202,7 +209,7 @@ def project_pages():
         <div class="detail-layout"><article class="prose"><section id="background"><h2>项目背景</h2><p>{esc(p['context'])}</p></section>{project_media(p)}{case}<section id="contribution"><h2>我的工作</h2>{work}</section>{overview}<section id="results"><h2>项目结果</h2>{metrics}<p>{esc(p['result'])}</p>{note}</section>{related_note}</article>
         <aside class="detail-aside" aria-label="项目信息"><h2>FOCUS</h2><p>{esc(p['category'])}</p><h2>STACK</h2>{tags(p['tags'])}<h2>ON THIS PAGE</h2>{toc}<h2 class="aside-more">MORE</h2>{'<a href="#demo">演示与记录 ↓</a>' if p.get('media') and media_enabled(p) else ''}<a href="{experience_url}">{'相关实习经历' if employer else '我的实习经历'} ↗</a><a href="mailto:{PROFILE['email']}">交流这个项目 ↗</a></aside></div>
         <div class="project-next"><a href="/projects/">← 返回全部项目</a><a href="/projects/{next_project['slug']}/">下一个：{esc(next_project['title'])} →</a></div>'''
-        write_page(f'/projects/{p["slug"]}/', p['title'], p['summary'], body, 'projects')
+        write_page(f'/projects/{p["slug"]}/', p['title'], p['summary'], body, 'projects', social_key='roboarena' if is_roboarena else 'home')
 
 
 def about():
@@ -238,7 +245,7 @@ def article():
         label = 'FIELD NOTES / ENGINEERING' if note['kind'] == '工程笔记' else 'FIELD NOTES / LEARNING'
         body = f'''<div class="page-heading"><a class="crumb" href="/list/">← 全部笔记</a>{eyebrow(label)}<h1>{esc(note['title'])}</h1><p>{esc(note['summary'])}</p><div class="article-date">{dates}</div>{tags(note['tags'])}</div>
         <div class="detail-layout article-layout"><article class="prose">{early_note}{source}{related}</article>{directory}</div>'''
-        write_page(note['path'], note['title'], note['summary'], body, 'notes', 'article')
+        write_page(note['path'], note['title'], note['summary'], body, 'notes', 'article', social_key='roboarena' if note['related_project'] == 'roboarena' else 'home')
 
 
 def note_indexes():
