@@ -1362,11 +1362,18 @@ nav a[aria-current=page]:after {
   letter-spacing:1px;
   color:var(--muted);
 }
-.hero.hero-text {
-  grid-template-columns:1fr;
+.robotics-hero img {
+  mix-blend-mode:multiply;
 }
-.hero-text .hero-description {
-  max-width:680px;
+.robotics-hero figcaption {
+  font-family:var(--mono);
+  font-size:9px;
+  color:var(--muted);
+}
+@media(min-width:761px) and (max-width:1000px) {
+  .hero h1 {
+    font-size:clamp(40px,5.35vw,51px);
+  }
 }
 .hero-media {
   display:block;

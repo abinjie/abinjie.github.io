@@ -107,9 +107,8 @@ def contact():
 
 
 def home():
-    hero_figure = '''<figure class="hero-figure"><div class="hero-image-meta"><span>NEWTON MPM</span><span>01 / TERRAIN CONTACT</span></div><a class="hero-media" href="/projects/mpm/#demo" aria-label="观看轮腿机器狗沙地仿真演示"><img src="/assets/media/robot-sand-hero.webp" alt="白色轮腿机器狗在沙地中行走，足部周围形成颗粒扰动" width="1000" height="1000" fetchpriority="high"><span class="hero-play" aria-hidden="true">▶</span></a><figcaption><span>轮腿机器狗 · 沙地接触</span><a href="/projects/mpm/#demo">观看演示 ↗</a></figcaption></figure>''' if SHOW_QUADRUPED_MEDIA else ''
-    hero_class = 'hero' if SHOW_QUADRUPED_MEDIA else 'hero hero-text'
-    body = f'''<section class="{hero_class}" aria-labelledby="hero-title">
+    hero_figure = '''<figure class="hero-figure robotics-hero"><img src="/assets/media/robotics-manipulator-hero.webp" alt="墨绿色与象牙白的协作机械臂夹起方块，周围以网格、点云和运动轨迹表现仿真与操作" width="1200" height="1200" fetchpriority="high"><figcaption><span>ROBOTICS / SIMULATION & MANIPULATION</span><span>概念插画</span></figcaption></figure>'''
+    body = f'''<section class="hero" aria-labelledby="hero-title">
       <div><div class="eyebrow">ROBOTICS ENGINEER / SIMULATION & ALGORITHMS</div>
         <h1 id="hero-title">你好，我是宾杰。<br>在仿真中，<br><em>走向真实世界。</em></h1>
         <p class="hero-role">机器人工程师 · 仿真与算法</p>
