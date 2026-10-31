@@ -13,6 +13,7 @@ BASE_URL = "https://abinjie.github.io"
 PROFILE = json.loads((ROOT / "content/profile.json").read_text())
 SHOW_QUADRUPED_MEDIA = PROFILE.get('show_quadruped_media', True)
 PROJECTS = json.loads((ROOT / "content/projects.json").read_text())
+EXPERIENCES = json.loads((ROOT / "content/experience.json").read_text())
 TEMPLATE = Template((ROOT / "templates/base.html").read_text())
 ASSET_VERSION = hashlib.sha256((ROOT / 'assets/site.css').read_bytes() + (ROOT / 'assets/site.js').read_bytes()).hexdigest()[:12]
 ARTICLE_PATH = "/2025/02/22/端到端模型/"
@@ -90,7 +91,29 @@ def project_media(project):
 
 
 def experience():
-    return ''.join(f'''<div class="experience-row"><div class="experience-time">{esc(item['period'])}</div><div><h3>{esc(item['company'])}</h3><p class="experience-team">{esc(item['team'])}</p><p>{esc(item['summary'])}</p>{tags(item['tags'])}</div></div>''' for item in PROFILE['experience'])
+    return ''.join(f'''<a class="experience-row experience-link" href="/experience/{item['slug']}/"><div class="experience-time">{esc(item['period'])}</div><div><h3><span>{esc(item['company'])}</span><span class="experience-arrow" aria-hidden="true">↗</span></h3><p class="experience-team">{esc(item['team'])}</p><p>{esc(item['summary'])}</p><div class="experience-row-bottom">{tags(item['tags'])}<span class="experience-read">查看经历 →</span></div></div></a>''' for item in PROFILE['experience'])
+
+
+def experience_pages():
+    intro = '三段机器人仿真与具身智能实习，覆盖物理仿真、场景与数据生成、模型评测和真实机器人验证。'
+    body = f'''<div class="page-heading">{eyebrow('EXPERIENCE / ROBOTICS ENGINEERING')}<h1>仿真与算法的工程实践</h1><p>{intro}</p></div><div class="page-content experience-index">{experience()}</div>'''
+    write_page('/experience/', '实习经历', intro, body, 'about')
+    profiles = {item['slug']: item for item in PROFILE['experience']}
+    projects = {item['slug']: item for item in PROJECTS}
+    for i, detail in enumerate(EXPERIENCES):
+        item = profiles[detail['slug']]
+        work = ''.join(f'<section class="experience-work"><div class="work-number">0{n + 1}</div><div><h3>{esc(part["title"])}</h3><p>{esc(part["text"])}</p></div></section>' for n, part in enumerate(detail['work']))
+        related = ''.join(f'<a class="experience-project" href="/projects/{slug}/"><div><span>{esc(projects[slug]["subtitle"])}</span><strong>{esc(projects[slug]["title"])}</strong></div><span aria-hidden="true">↗</span></a>' for slug in detail['projects'])
+        related = f'<section id="related"><h2>相关项目</h2>{related}</section>' if related else ''
+        links = ''.join(f'<a href="{esc(link["url"])}" target="_blank" rel="noopener noreferrer">{esc(link["label"])} ↗</a>' for link in detail['links'])
+        links = f'<h2>相关公开项目</h2><div class="link-list">{links}</div>' if links else ''
+        next_item = profiles[EXPERIENCES[(i + 1) % len(EXPERIENCES)]['slug']]
+        company_heading = ' <span class="employer-join">×</span> '.join(f'<span class="employer-name">{esc(name)}</span>' for name in item['company'].split(' × ')) if ' × ' in item['company'] else esc(item['company'])
+        body = f'''<div class="page-heading experience-page-heading"><a class="crumb" href="/experience/">← 全部经历</a>{eyebrow('EXPERIENCE / ' + detail['location'])}<h1>{company_heading}</h1><p>{esc(item['team'])}</p><div class="page-kicker">{esc(item['period'])} · {esc(detail['location'])}</div></div>
+        <div class="detail-layout"><article class="prose"><h2>工作背景</h2><p>{esc(detail['context'])}</p><section id="work"><h2>主要工作</h2>{work}</section>{related}{links}</article>
+        <aside class="detail-aside"><h2>PERIOD</h2><p>{esc(item['period'])}<br>{esc(detail['location'])}</p><h2>FOCUS</h2>{tags(item['tags'])}<h2>ON THIS PAGE</h2><a href="#work">主要工作 ↓</a>{'<a href="#related">相关项目 ↓</a>' if detail['projects'] else ''}<a href="/experience/">全部经历 ↗</a><a href="mailto:{PROFILE['email']}">联系我 ↗</a></aside></div>
+        <div class="project-next"><a href="/experience/">← 返回全部经历</a><a href="/experience/{next_item['slug']}/">下一段：{esc(next_item['company'])} →</a></div>'''
+        write_page(f'/experience/{detail["slug"]}/', item['company'] + ' · 实习经历', item['summary'], body, 'about')
 
 
 def note_row():
@@ -107,13 +130,13 @@ def contact():
 
 
 def home():
-    hero_figure = '''<figure class="hero-figure robotics-hero"><img src="/assets/media/robotics-manipulator-hero.webp" alt="墨绿色与象牙白的协作机械臂夹起方块，周围以网格、点云和运动轨迹表现仿真与操作" width="1200" height="1200" fetchpriority="high"><figcaption><span>ROBOTICS / SIMULATION & MANIPULATION</span><span>概念插画</span></figcaption></figure>'''
+    hero_figure = '''<figure class="hero-figure robotics-hero"><div class="hero-scene"><div class="scene-orbit" aria-hidden="true"></div><div class="scene-grid" aria-hidden="true"></div><span class="scene-coordinate" aria-hidden="true">x / y / z</span><img src="/assets/media/robotics-manipulator-cutout.webp" alt="墨绿与象牙白的协作机械臂夹起方块" width="1200" height="1200" fetchpriority="high"><span class="scene-label" aria-hidden="true"><i></i> SIMULATION → REALITY</span></div><figcaption><span>物理仿真 · 策略评测 · 真实验证</span><span>概念插画</span></figcaption></figure>'''
     body = f'''<section class="hero" aria-labelledby="hero-title">
       <div><div class="eyebrow">ROBOTICS ENGINEER / SIMULATION & ALGORITHMS</div>
         <h1 id="hero-title">你好，我是宾杰。<br>在仿真中，<br><em>走向真实世界。</em></h1>
         <p class="hero-role">机器人工程师 · 仿真与算法</p>
         <p class="hero-description">围绕机器人仿真、策略评测与合成数据，构建从物理引擎到真实机器人的验证闭环。关注 Isaac Sim / MuJoCo、Sim2Real 与物理仿真的工程实现。</p>
-        <div class="hero-actions"><a class="button" href="/projects/">查看项目 <span aria-hidden="true">↗</span></a><a class="text-link" href="/about/">了解我的经历 <span aria-hidden="true">→</span></a></div>
+        <div class="hero-actions"><a class="button" href="/projects/">查看项目 <span aria-hidden="true">↗</span></a><a class="text-link" href="/experience/">了解我的经历 <span aria-hidden="true">→</span></a></div>
         <div class="hero-meta"><span>WUXI UNIVERSITY / AI</span><span>2027 届本科</span></div>
       </div>
 {hero_figure}
@@ -124,7 +147,7 @@ def home():
       <div class="focus-item"><span class="focus-number">03</span><div><h2>感知与合成数据</h2><p>3D Gaussian Splatting · 多传感器仿真</p></div></div>
     </section>
     <section class="section" aria-labelledby="selected-projects">{section_heading('SELECTED WORK / 01', '<span id="selected-projects">精选项目</span>', '/projects/', '全部项目')}<div>{''.join(project_row(p) for p in PROJECTS[:3])}</div></section>
-    <section class="section" aria-labelledby="experience-title">{section_heading('EXPERIENCE / 02', '<span id="experience-title">从仿真到实机的实践</span>', '/about/#experience', '完整经历')}{experience()}</section>
+    <section class="section" aria-labelledby="experience-title">{section_heading('EXPERIENCE / 02', '<span id="experience-title"><a class="section-title-link" href="/experience/">从仿真到实机的实践 <span aria-hidden="true">↗</span></a></span>', '/experience/', '全部经历')}{experience()}</section>
     <section class="section" aria-labelledby="notes-title">{section_heading('FIELD NOTES / 03', '<span id="notes-title">学习与记录</span>', '/list/', '全部笔记')}{note_row()}</section>
     {contact()}'''
     desc = "宾杰，机器人工程师，专注仿真与算法。分享 Isaac Sim、MuJoCo、Sim2Sim / Sim2Real、MPM 物理仿真与合成数据的项目实践。"
@@ -143,9 +166,11 @@ def project_pages():
         metrics = '<div class="metrics">' + ''.join(f'<div class="metric"><strong>{esc(m["value"])}</strong><span>{esc(m["label"])}</span></div>' for m in p['metrics']) + '</div>' if p.get('metrics') else ''
         note = f'<div class="callout">{esc(p["note"])}</div>' if p.get('note') else ''
         next_project = PROJECTS[(i + 1) % len(PROJECTS)]
+        employer = {'sim2sim': 'huazhijian', 'mpm': 'huazhijian', 'synthetic-data': 'huazhijian', 'roboarena': 'dexforce-megvii'}.get(p['slug'])
+        experience_url = f'/experience/{employer}/' if employer else '/experience/'
         body = f'''<div class="page-heading"><a class="crumb" href="/projects/">← 全部项目</a>{eyebrow('PROJECT ' + p['number'] + ' / ' + p['category'])}<h1>{esc(p['title'])}</h1><p>{esc(p['summary'])}</p><div class="page-kicker">{esc(p['period'])}</div></div>
         <div class="detail-layout"><article class="prose"><h2>项目背景</h2><p>{esc(p['context'])}</p>{project_media(p)}<h2>我的工作</h2>{work}<h2>链路概览</h2><div class="flow">{flow}</div><h2>项目结果</h2>{metrics}<p>{esc(p['result'])}</p>{note}</article>
-        <aside class="detail-aside" aria-label="项目信息"><h2>FOCUS</h2><p>{esc(p['category'])}</p><h2>STACK</h2>{tags(p['tags'])}<h2>MORE</h2>{'<a href="#demo">演示与记录 ↓</a>' if p.get('media') and media_enabled(p) else ''}<a href="/about/#experience">相关实习经历 ↗</a><a href="mailto:{PROFILE['email']}">交流这个项目 ↗</a></aside></div>
+        <aside class="detail-aside" aria-label="项目信息"><h2>FOCUS</h2><p>{esc(p['category'])}</p><h2>STACK</h2>{tags(p['tags'])}<h2>MORE</h2>{'<a href="#demo">演示与记录 ↓</a>' if p.get('media') and media_enabled(p) else ''}<a href="{experience_url}">{'相关实习经历' if employer else '我的实习经历'} ↗</a><a href="mailto:{PROFILE['email']}">交流这个项目 ↗</a></aside></div>
         <div class="project-next"><a href="/projects/">← 返回全部项目</a><a href="/projects/{next_project['slug']}/">下一个：{esc(next_project['title'])} →</a></div>'''
         write_page(f'/projects/{p["slug"]}/', p['title'], p['summary'], body, 'projects')
 
@@ -202,6 +227,7 @@ def note_indexes():
 
 def main():
     home()
+    experience_pages()
     project_pages()
     about()
     article()

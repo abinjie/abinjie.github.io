@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://abinjie.github.io/</loc></url>
+  <url><loc>https://abinjie.github.io/experience/</loc></url>
+  <url><loc>https://abinjie.github.io/experience/huazhijian/</loc></url>
+  <url><loc>https://abinjie.github.io/experience/dexforce-megvii/</loc></url>
+  <url><loc>https://abinjie.github.io/experience/discover/</loc></url>
   <url><loc>https://abinjie.github.io/projects/</loc></url>
   <url><loc>https://abinjie.github.io/projects/sim2sim/</loc></url>
   <url><loc>https://abinjie.github.io/projects/mpm/</loc></url>

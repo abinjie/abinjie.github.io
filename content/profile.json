@@ -5,17 +5,67 @@
   "email": "binjie6707@gmail.com",
   "github": "https://github.com/abinjie",
   "updated": "2026-10-31",
-  "education": {"school": "无锡学院", "major": "人工智能 · 本科", "department": "电子信息工程学院", "period": "2023.09 — 2027.06（预计）"},
+  "education": {
+    "school": "无锡学院",
+    "major": "人工智能 · 本科",
+    "department": "电子信息工程学院",
+    "period": "2023.09 — 2027.06（预计）"
+  },
   "experience": [
-    {"company": "上海桦之坚科技", "team": "具身智能部 · 仿真算法组", "period": "2026.02 — 2026.10", "summary": "面向轮腿机器狗，开展 Newton MPM 颗粒仿真优化、MuJoCo → Isaac Sim 自动评测、多传感器采集与合成数据管线开发。", "tags": ["Newton MPM", "Sim2Sim", "Isaac Sim"]},
-    {"company": "原力灵机 × 旷视研究院", "team": "基础算法组 · 实习", "period": "2025.08 — 2025.12", "summary": "开发机器人操作任务仿真与模型测评平台，集成 3DGS / PGSR 渲染、云端 VLA 推理，并参与真实机器狗的 Sim2Real 路径跟踪评测。", "tags": ["RoboArena", "VLA / RL", "3DGS"]},
-    {"company": "求之科技 · DISCOVER Robotics", "team": "机器人仿真开发实习生", "period": "2025.02 — 2025.06", "summary": "参与 DISCOVERSE 高保真仿真平台开发，结合 MuJoCo、3D Gaussian Splatting 与 ROS 2，支持场景构建、传感器数据处理与机器人系统联调。", "tags": ["DISCOVERSE", "MuJoCo", "ROS 2"]}
+    {
+      "company": "上海桦之坚科技",
+      "team": "具身智能部 · 仿真算法组",
+      "period": "2026.02 — 2026.10",
+      "summary": "面向轮腿机器狗，开展 Newton MPM 颗粒仿真优化、MuJoCo → Isaac Sim 自动评测、多传感器采集与合成数据管线开发。",
+      "tags": [
+        "Newton MPM",
+        "Sim2Sim",
+        "Isaac Sim"
+      ],
+      "slug": "huazhijian"
+    },
+    {
+      "company": "原力灵机 × 旷视研究院",
+      "team": "基础算法组 · 实习",
+      "period": "2025.08 — 2025.12",
+      "summary": "开发机器人操作任务仿真与模型测评平台，集成 3DGS / PGSR 渲染、云端 VLA 推理，并参与真实机器狗的 Sim2Real 路径跟踪评测。",
+      "tags": [
+        "RoboArena",
+        "VLA / RL",
+        "3DGS"
+      ],
+      "slug": "dexforce-megvii"
+    },
+    {
+      "company": "求之科技 · DISCOVER Robotics",
+      "team": "机器人仿真开发实习生",
+      "period": "2025.02 — 2025.06",
+      "summary": "参与 DISCOVERSE 高保真仿真平台开发，结合 MuJoCo、3D Gaussian Splatting 与 ROS 2，支持场景构建、传感器数据处理与机器人系统联调。",
+      "tags": [
+        "DISCOVERSE",
+        "MuJoCo",
+        "ROS 2"
+      ],
+      "slug": "discover"
+    }
   ],
   "skills": [
-    {"title": "仿真与物理", "items": "Isaac Sim / MuJoCo / Newton MPM / 机器人动力学参数对齐 / 颗粒仿真性能优化"},
-    {"title": "算法评测与迁移", "items": "Sim2Sim / Sim2Real / VLA 与 RL 模型评测 / Rerun 状态可视化 / AprilTag 轨迹追踪"},
-    {"title": "感知与数据", "items": "3DGS / PGSR / RGB-D / RTX LiDAR / 多传感器标定与采集 / 合成数据生成"},
-    {"title": "机器人系统", "items": "Python / C / C++ / Linux / ROS 1 & ROS 2 / Docker / 导航与视觉抓取 / 分布式服务联调"}
+    {
+      "title": "仿真与物理",
+      "items": "Isaac Sim / MuJoCo / Newton MPM / 机器人动力学参数对齐 / 颗粒仿真性能优化"
+    },
+    {
+      "title": "算法评测与迁移",
+      "items": "Sim2Sim / Sim2Real / VLA 与 RL 模型评测 / Rerun 状态可视化 / AprilTag 轨迹追踪"
+    },
+    {
+      "title": "感知与数据",
+      "items": "3DGS / PGSR / RGB-D / RTX LiDAR / 多传感器标定与采集 / 合成数据生成"
+    },
+    {
+      "title": "机器人系统",
+      "items": "Python / C / C++ / Linux / ROS 1 & ROS 2 / Docker / 导航与视觉抓取 / 分布式服务联调"
+    }
   ],
   "awards": [
     "2025 全国大学生电子设计大赛 · 国赛二等奖、江苏赛区一等奖",

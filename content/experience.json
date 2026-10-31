@@ -1,0 +1,51 @@
+[
+  {
+    "slug": "huazhijian",
+    "location": "上海",
+    "context": "围绕高保真、可扩展的机器人仿真与数据采集系统，开展物理仿真优化、跨引擎策略评测和合成数据生产，为运控与感知算法的验证提供环境、数据与分析工具。",
+    "work": [
+      {"title": "Newton MPM 求解器优化与运控评测", "text": "构建约 200 万粒子的沙地仿真环境，通过非活跃网格裁剪、粒子—网格访存优化、中间缓存复用及求解参数调优，在项目测试环境中将单步耗时由约 120 ms 降至 75 ms，吞吐提升至约 1.6 倍，显存占用降低约 18%。接入轮腿机器狗运控模型，评测沉陷、打滑与颗粒扰动条件下的鲁棒性。"},
+      {"title": "MuJoCo → Isaac Sim 自动评测", "text": "系统性对齐关节顺序映射、PD / torque 控制模式、ArticulationRoot 定义、坐标系以及质量、惯量等动力学参数差异，实现同一策略在双引擎下的自动执行、指标评价与结果对比，支撑上下车与地形任务验证。"},
+      {"title": "多传感器采集与路线规划", "text": "对齐真实采集车的鱼眼相机内外参、畸变模型与视场角，配置 RTX LiDAR；构建占据栅格地图并基于 A* 规划采集路线。优化 ScanBuffer / NoAccumulator 读取逻辑与 Kit Update 时序，实现跨帧点云累积，处理水平扫描角不足、扇区点云和偶发空帧。"},
+      {"title": "可控视频生成与质量评测闭环", "text": "基于 NVIDIA Cosmos3-Super 搭建人物动作、服装、天气、场景与视觉风格可控的视频生成链路。结合 ArcFace、OSNet、DINOv2、SigLIP、VideoMAE，使用置信度动态融合与滑动窗口分析身份、服装漂移和动作异常，将评测结果反馈至 Prompt、参考输入与生成参数。"},
+      {"title": "3DGS 场景集成与数字人行为编排", "text": "基于 NVIDIA 3DGRUT 将 3DGS 重建场景接入 Isaac Sim，完成坐标对齐与渲染验证；使用 isaacsim.replicator.agent（IRA）编排动作序列、状态切换与事件触发，支持动态场景验证和合成数据生成。"},
+      {"title": "基于 Rerun 的策略异常定位", "text": "录制关节位置、速度、力矩与机身姿态曲线，辅助分析关节抖动、力矩饱和、姿态漂移及落足异常，加快 Sim2Sim 差异定位。"}
+    ],
+    "projects": ["sim2sim", "mpm", "synthetic-data"],
+    "links": []
+  },
+  {
+    "slug": "dexforce-megvii",
+    "location": "北京",
+    "context": "在基础算法组参与机器人操作任务仿真器、场景渲染与模型测评系统的开发，连接真实场景建模、仿真数据生成、策略推理和实机评测。",
+    "work": [
+      {"title": "机器人操作任务仿真器", "text": "基于 NVIDIA Isaac Sim 开发操作任务仿真器，构建从真实场景到仿真环境的自动化建模流程，支持 Real-to-Sim 对齐，为操作算法提供数据生成与评测环境。"},
+      {"title": "3DGS / PGSR 渲染与多模态数据", "text": "实现仿真渲染管线，集成 3D Gaussian Splatting 和 PGSR 渲染方案，支持高质量场景重建与视觉数据生成。构建 RGB、Depth、Segmentation 等多模态数据的自动导出流程，用于机器人感知与操作模型训练和测评。"},
+      {"title": "RoboArena 闭环模型测评", "text": "基于 Isaac Sim 构建 VLA / RL 统一仿真测评平台：本地运行 Franka / UR5 物理仿真，云端部署 3DGS 渲染与 VLA 推理服务，连接仿真状态、视觉渲染、动作预测、控制器执行与状态回传，支持多轮交互与可复现实验。"},
+      {"title": "Sim2Real 路径跟踪评测", "text": "搭建真实环境下的机器狗路径跟踪评测系统，通过多相机 AprilTag 3D 位姿追踪获取 6DoF 轨迹，用于量化分析仿真与真实执行间的差异。"},
+      {"title": "标准化评测与云端部署", "text": "设计统一的模型评测流程与指标统计脚本，支持性能对比和消融分析。完成部分算法与推理服务的容器化部署并接入火山云平台，进行依赖适配、云端推理测试以及本地与云端性能、稳定性和资源使用的对比。"},
+      {"title": "实验复现与技术文档", "text": "编写并维护仿真器、渲染管线与云端部署文档，支撑实验对齐、内部复现和后续工作交接。"}
+    ],
+    "projects": ["roboarena"],
+    "links": [
+      {"label": "RoboChallenge", "url": "https://robochallenge.ai/"},
+      {"label": "Dexbotic", "url": "https://dexbotic.com/"}
+    ]
+  },
+  {
+    "slug": "discover",
+    "location": "无锡",
+    "context": "参与 DISCOVERSE 高保真机器人仿真平台开发，将 MuJoCo 物理引擎、3D Gaussian Splatting 渲染与 ROS 2 接口连接起来，支持复杂场景中的机器人仿真与 Sim2Real 评测。",
+    "work": [
+      {"title": "高保真仿真平台开发", "text": "参与自研仿真平台开发，结合 MuJoCo、3D Gaussian Splatting 与 ROS 2，构建真实场景中的机器人仿真环境。平台用于移动升降双臂机器人的 Sim-to-Real 算法评测与比赛验证。"},
+      {"title": "3D 场景与渲染集成", "text": "基于 MuJoCo 和 diff-Gaussian 渲染技术构建 3D 仿真环境，支持强化学习与视觉任务训练。"},
+      {"title": "图像与传感器数据预处理", "text": "参与 Sim2Real 迁移中的图像及传感器数据预处理，为仿真模型在真实机器人平台上的验证提供支持。"},
+      {"title": "ROS 2 与 Docker 环境", "text": "使用基于 Ubuntu 24.04 和 ROS 2 Jazzy 的 Docker 镜像参与平台开发和维护，调试多容器通信及多模块协同的机器人系统。"},
+      {"title": "开发文档与调试记录", "text": "协助维护系统文档和调试记录，支持团队开发、问题复现和工程交接。"}
+    ],
+    "projects": [],
+    "links": [
+      {"label": "DISCOVERSE 开源仓库", "url": "https://github.com/TATP-233/DISCOVERSE"}
+    ]
+  }
+]

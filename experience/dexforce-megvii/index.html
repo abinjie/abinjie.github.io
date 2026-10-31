@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="开发机器人操作任务仿真与模型测评平台，集成 3DGS / PGSR 渲染、云端 VLA 推理，并参与真实机器狗的 Sim2Real 路径跟踪评测。">
+  <meta name="theme-color" content="#f7f7f2">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="原力灵机 × 旷视研究院 · 实习经历 · 宾杰">
+  <meta property="og:description" content="开发机器人操作任务仿真与模型测评平台，集成 3DGS / PGSR 渲染、云端 VLA 推理，并参与真实机器狗的 Sim2Real 路径跟踪评测。">
+  <meta property="og:url" content="https://abinjie.github.io/experience/dexforce-megvii/">
+  <meta property="og:locale" content="zh_CN">
+  <title>原力灵机 × 旷视研究院 · 实习经历 · 宾杰</title>
+  <link rel="canonical" href="https://abinjie.github.io/experience/dexforce-megvii/">
+  <link rel="icon" type="image/svg+xml" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=dc90eacbf418">
+  <script src="/assets/site.js?v=dc90eacbf418" defer></script>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">跳到正文</a>
+  <header class="site-header wrap">
+    <a class="brand" href="/" aria-label="宾杰，返回首页"><span class="brand-mark" aria-hidden="true">b<span>.</span></span><span>BINJIE<span class="brand-caption">ROBOTICS & SIMULATION</span></span></a>
+    <nav aria-label="主导航"><a href="/">首页</a><a href="/projects/">项目</a><a href="/list/">笔记</a><a href="/about/" aria-current="page">关于</a></nav>
+    <a class="header-contact" href="mailto:binjie6707@gmail.com">联系我 <span aria-hidden="true">↗</span></a>
+  </header>
+  <main id="main" class="wrap"><div class="page-heading experience-page-heading"><a class="crumb" href="/experience/">← 全部经历</a><div class="eyebrow">EXPERIENCE / 北京</div><h1><span class="employer-name">原力灵机</span> <span class="employer-join">×</span> <span class="employer-name">旷视研究院</span></h1><p>基础算法组 · 实习</p><div class="page-kicker">2025.08 — 2025.12 · 北京</div></div>
+        <div class="detail-layout"><article class="prose"><h2>工作背景</h2><p>在基础算法组参与机器人操作任务仿真器、场景渲染与模型测评系统的开发，连接真实场景建模、仿真数据生成、策略推理和实机评测。</p><section id="work"><h2>主要工作</h2><section class="experience-work"><div class="work-number">01</div><div><h3>机器人操作任务仿真器</h3><p>基于 NVIDIA Isaac Sim 开发操作任务仿真器，构建从真实场景到仿真环境的自动化建模流程，支持 Real-to-Sim 对齐，为操作算法提供数据生成与评测环境。</p></div></section><section class="experience-work"><div class="work-number">02</div><div><h3>3DGS / PGSR 渲染与多模态数据</h3><p>实现仿真渲染管线，集成 3D Gaussian Splatting 和 PGSR 渲染方案，支持高质量场景重建与视觉数据生成。构建 RGB、Depth、Segmentation 等多模态数据的自动导出流程，用于机器人感知与操作模型训练和测评。</p></div></section><section class="experience-work"><div class="work-number">03</div><div><h3>RoboArena 闭环模型测评</h3><p>基于 Isaac Sim 构建 VLA / RL 统一仿真测评平台：本地运行 Franka / UR5 物理仿真，云端部署 3DGS 渲染与 VLA 推理服务，连接仿真状态、视觉渲染、动作预测、控制器执行与状态回传，支持多轮交互与可复现实验。</p></div></section><section class="experience-work"><div class="work-number">04</div><div><h3>Sim2Real 路径跟踪评测</h3><p>搭建真实环境下的机器狗路径跟踪评测系统，通过多相机 AprilTag 3D 位姿追踪获取 6DoF 轨迹，用于量化分析仿真与真实执行间的差异。</p></div></section><section class="experience-work"><div class="work-number">05</div><div><h3>标准化评测与云端部署</h3><p>设计统一的模型评测流程与指标统计脚本，支持性能对比和消融分析。完成部分算法与推理服务的容器化部署并接入火山云平台，进行依赖适配、云端推理测试以及本地与云端性能、稳定性和资源使用的对比。</p></div></section><section class="experience-work"><div class="work-number">06</div><div><h3>实验复现与技术文档</h3><p>编写并维护仿真器、渲染管线与云端部署文档，支撑实验对齐、内部复现和后续工作交接。</p></div></section></section><section id="related"><h2>相关项目</h2><a class="experience-project" href="/projects/roboarena/"><div><span>仿真—渲染—决策—控制</span><strong>RoboArena 模型测评平台</strong></div><span aria-hidden="true">↗</span></a></section><h2>相关公开项目</h2><div class="link-list"><a href="https://robochallenge.ai/" target="_blank" rel="noopener noreferrer">RoboChallenge ↗</a><a href="https://dexbotic.com/" target="_blank" rel="noopener noreferrer">Dexbotic ↗</a></div></article>
+        <aside class="detail-aside"><h2>PERIOD</h2><p>2025.08 — 2025.12<br>北京</p><h2>FOCUS</h2><div class="tags"><span class="tag">RoboArena</span><span class="tag">VLA / RL</span><span class="tag">3DGS</span></div><h2>ON THIS PAGE</h2><a href="#work">主要工作 ↓</a><a href="#related">相关项目 ↓</a><a href="/experience/">全部经历 ↗</a><a href="mailto:binjie6707@gmail.com">联系我 ↗</a></aside></div>
+        <div class="project-next"><a href="/experience/">← 返回全部经历</a><a href="/experience/discover/">下一段：求之科技 · DISCOVER Robotics →</a></div></main>
+  <footer class="site-footer wrap">
+    <div><a class="footer-name" href="/">宾杰 <span>/</span> BINJIE</a><p>在仿真中构建，在真实世界中验证。</p></div>
+    <div class="footer-links"><a href="https://github.com/abinjie" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="mailto:binjie6707@gmail.com">Email ↗</a><a href="/about/">关于本站</a></div>
+    <div class="footer-bottom"><span>© 2026 宾杰</span><span>ROBOTICS · SIMULATION · ALGORITHMS</span><a href="#top" class="back-top" aria-label="返回页面顶部">回到顶部 ↑</a></div>
+  </footer>
+</body>
+</html>

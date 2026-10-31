@@ -13,8 +13,8 @@
   <title>RoboArena 模型测评平台 · 宾杰</title>
   <link rel="canonical" href="https://abinjie.github.io/projects/roboarena/">
   <link rel="icon" type="image/svg+xml" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=98496d733979">
-  <script src="/assets/site.js?v=98496d733979" defer></script>
+  <link rel="stylesheet" href="/assets/site.css?v=dc90eacbf418">
+  <script src="/assets/site.js?v=dc90eacbf418" defer></script>
 </head>
 <body id="top">
   <a class="skip-link" href="#main">跳到正文</a>
@@ -25,7 +25,7 @@
   </header>
   <main id="main" class="wrap"><div class="page-heading"><a class="crumb" href="/projects/">← 全部项目</a><div class="eyebrow">PROJECT 03 / 模型评测</div><h1>RoboArena 模型测评平台</h1><p>连接本地物理仿真、云端 3DGS 渲染和 VLA 推理，在统一环境中完成闭环模型测评。</p><div class="page-kicker">2025.09 — 2025.12 · 实习项目</div></div>
         <div class="detail-layout"><article class="prose"><h2>项目背景</h2><p>基于 NVIDIA Isaac Sim 构建机器人仿真与模型测评平台，面向 Franka / UR5 操作任务，为 VLA 模型及强化学习算法提供统一评测环境。</p><h2>我的工作</h2><h3>分布式测评架构</h3><p>本地 Isaac Sim 负责物理仿真与机器人动力学，云端分别部署 3DGS 渲染服务与 VLA 模型推理服务。</p><h3>闭环交互管线</h3><p>将仿真状态送入渲染服务，基于视觉结果预测动作序列，再由机器人控制器执行并回传状态，支持多轮交互。</p><h3>模型对比与部署</h3><p>在统一仿真环境中进行 VLA / RL 模型对比，参与容器化部署、云端推理测试及环境和实验文档维护。</p><h2>链路概览</h2><div class="flow"><div class="flow-step"><span>01</span>Isaac Sim 状态</div><div class="flow-step"><span>02</span>云端 3DGS 渲染</div><div class="flow-step"><span>03</span>VLA 动作预测</div><div class="flow-step"><span>04</span>控制执行与回传</div></div><h2>项目结果</h2><p>构建仿真、渲染、决策与控制的闭环评测管线，支持可复现实验与不同模型的性能对比，并通过服务解耦提高测评的灵活性。</p></article>
-        <aside class="detail-aside" aria-label="项目信息"><h2>FOCUS</h2><p>模型评测</p><h2>STACK</h2><div class="tags"><span class="tag">Isaac Sim</span><span class="tag">3DGS</span><span class="tag">VLA / RL</span><span class="tag">Docker</span></div><h2>MORE</h2><a href="/about/#experience">相关实习经历 ↗</a><a href="mailto:binjie6707@gmail.com">交流这个项目 ↗</a></aside></div>
+        <aside class="detail-aside" aria-label="项目信息"><h2>FOCUS</h2><p>模型评测</p><h2>STACK</h2><div class="tags"><span class="tag">Isaac Sim</span><span class="tag">3DGS</span><span class="tag">VLA / RL</span><span class="tag">Docker</span></div><h2>MORE</h2><a href="/experience/dexforce-megvii/">相关实习经历 ↗</a><a href="mailto:binjie6707@gmail.com">交流这个项目 ↗</a></aside></div>
         <div class="project-next"><a href="/projects/">← 返回全部项目</a><a href="/projects/synthetic-data/">下一个：多传感器仿真与合成数据 →</a></div></main>
   <footer class="site-footer wrap">
     <div><a class="footer-name" href="/">宾杰 <span>/</span> BINJIE</a><p>在仿真中构建，在真实世界中验证。</p></div>

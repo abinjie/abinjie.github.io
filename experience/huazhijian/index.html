@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="面向轮腿机器狗，开展 Newton MPM 颗粒仿真优化、MuJoCo → Isaac Sim 自动评测、多传感器采集与合成数据管线开发。">
+  <meta name="theme-color" content="#f7f7f2">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="上海桦之坚科技 · 实习经历 · 宾杰">
+  <meta property="og:description" content="面向轮腿机器狗，开展 Newton MPM 颗粒仿真优化、MuJoCo → Isaac Sim 自动评测、多传感器采集与合成数据管线开发。">
+  <meta property="og:url" content="https://abinjie.github.io/experience/huazhijian/">
+  <meta property="og:locale" content="zh_CN">
+  <title>上海桦之坚科技 · 实习经历 · 宾杰</title>
+  <link rel="canonical" href="https://abinjie.github.io/experience/huazhijian/">
+  <link rel="icon" type="image/svg+xml" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css?v=dc90eacbf418">
+  <script src="/assets/site.js?v=dc90eacbf418" defer></script>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">跳到正文</a>
+  <header class="site-header wrap">
+    <a class="brand" href="/" aria-label="宾杰，返回首页"><span class="brand-mark" aria-hidden="true">b<span>.</span></span><span>BINJIE<span class="brand-caption">ROBOTICS & SIMULATION</span></span></a>
+    <nav aria-label="主导航"><a href="/">首页</a><a href="/projects/">项目</a><a href="/list/">笔记</a><a href="/about/" aria-current="page">关于</a></nav>
+    <a class="header-contact" href="mailto:binjie6707@gmail.com">联系我 <span aria-hidden="true">↗</span></a>
+  </header>
+  <main id="main" class="wrap"><div class="page-heading experience-page-heading"><a class="crumb" href="/experience/">← 全部经历</a><div class="eyebrow">EXPERIENCE / 上海</div><h1>上海桦之坚科技</h1><p>具身智能部 · 仿真算法组</p><div class="page-kicker">2026.02 — 2026.10 · 上海</div></div>
+        <div class="detail-layout"><article class="prose"><h2>工作背景</h2><p>围绕高保真、可扩展的机器人仿真与数据采集系统，开展物理仿真优化、跨引擎策略评测和合成数据生产，为运控与感知算法的验证提供环境、数据与分析工具。</p><section id="work"><h2>主要工作</h2><section class="experience-work"><div class="work-number">01</div><div><h3>Newton MPM 求解器优化与运控评测</h3><p>构建约 200 万粒子的沙地仿真环境，通过非活跃网格裁剪、粒子—网格访存优化、中间缓存复用及求解参数调优，在项目测试环境中将单步耗时由约 120 ms 降至 75 ms，吞吐提升至约 1.6 倍，显存占用降低约 18%。接入轮腿机器狗运控模型，评测沉陷、打滑与颗粒扰动条件下的鲁棒性。</p></div></section><section class="experience-work"><div class="work-number">02</div><div><h3>MuJoCo → Isaac Sim 自动评测</h3><p>系统性对齐关节顺序映射、PD / torque 控制模式、ArticulationRoot 定义、坐标系以及质量、惯量等动力学参数差异，实现同一策略在双引擎下的自动执行、指标评价与结果对比，支撑上下车与地形任务验证。</p></div></section><section class="experience-work"><div class="work-number">03</div><div><h3>多传感器采集与路线规划</h3><p>对齐真实采集车的鱼眼相机内外参、畸变模型与视场角，配置 RTX LiDAR；构建占据栅格地图并基于 A* 规划采集路线。优化 ScanBuffer / NoAccumulator 读取逻辑与 Kit Update 时序，实现跨帧点云累积，处理水平扫描角不足、扇区点云和偶发空帧。</p></div></section><section class="experience-work"><div class="work-number">04</div><div><h3>可控视频生成与质量评测闭环</h3><p>基于 NVIDIA Cosmos3-Super 搭建人物动作、服装、天气、场景与视觉风格可控的视频生成链路。结合 ArcFace、OSNet、DINOv2、SigLIP、VideoMAE，使用置信度动态融合与滑动窗口分析身份、服装漂移和动作异常，将评测结果反馈至 Prompt、参考输入与生成参数。</p></div></section><section class="experience-work"><div class="work-number">05</div><div><h3>3DGS 场景集成与数字人行为编排</h3><p>基于 NVIDIA 3DGRUT 将 3DGS 重建场景接入 Isaac Sim，完成坐标对齐与渲染验证；使用 isaacsim.replicator.agent（IRA）编排动作序列、状态切换与事件触发，支持动态场景验证和合成数据生成。</p></div></section><section class="experience-work"><div class="work-number">06</div><div><h3>基于 Rerun 的策略异常定位</h3><p>录制关节位置、速度、力矩与机身姿态曲线，辅助分析关节抖动、力矩饱和、姿态漂移及落足异常，加快 Sim2Sim 差异定位。</p></div></section></section><section id="related"><h2>相关项目</h2><a class="experience-project" href="/projects/sim2sim/"><div><span>MuJoCo → Isaac Sim</span><strong>跨仿真引擎的策略评测</strong></div><span aria-hidden="true">↗</span></a><a class="experience-project" href="/projects/mpm/"><div><span>Newton MPM · 粒子与接触</span><strong>轮腿机器狗的沙地仿真</strong></div><span aria-hidden="true">↗</span></a><a class="experience-project" href="/projects/synthetic-data/"><div><span>从场景到可用数据</span><strong>多传感器仿真与合成数据</strong></div><span aria-hidden="true">↗</span></a></section></article>
+        <aside class="detail-aside"><h2>PERIOD</h2><p>2026.02 — 2026.10<br>上海</p><h2>FOCUS</h2><div class="tags"><span class="tag">Newton MPM</span><span class="tag">Sim2Sim</span><span class="tag">Isaac Sim</span></div><h2>ON THIS PAGE</h2><a href="#work">主要工作 ↓</a><a href="#related">相关项目 ↓</a><a href="/experience/">全部经历 ↗</a><a href="mailto:binjie6707@gmail.com">联系我 ↗</a></aside></div>
+        <div class="project-next"><a href="/experience/">← 返回全部经历</a><a href="/experience/dexforce-megvii/">下一段：原力灵机 × 旷视研究院 →</a></div></main>
+  <footer class="site-footer wrap">
+    <div><a class="footer-name" href="/">宾杰 <span>/</span> BINJIE</a><p>在仿真中构建，在真实世界中验证。</p></div>
+    <div class="footer-links"><a href="https://github.com/abinjie" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="mailto:binjie6707@gmail.com">Email ↗</a><a href="/about/">关于本站</a></div>
+    <div class="footer-bottom"><span>© 2026 宾杰</span><span>ROBOTICS · SIMULATION · ALGORITHMS</span><a href="#top" class="back-top" aria-label="返回页面顶部">回到顶部 ↑</a></div>
+  </footer>
+</body>
+</html>
