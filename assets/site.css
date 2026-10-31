@@ -1829,7 +1829,7 @@ nav a[aria-current=page]:after {
 @media(max-width:760px) {
   .hero { padding-block:30px; }
   .hero h1 { font-size:clamp(34px,9vw,50px); }
-  .robotics-hero { max-width:320px; justify-self:center; margin:24px 0 0; }
+  .robotics-hero { max-width:240px; justify-self:center; margin:16px 0 0; }
   .section { padding-block:36px; }
   .selected-work { padding-top:30px; }
   .featured-project { grid-template-columns:minmax(0,1fr); gap:26px; padding:22px; }
@@ -1840,11 +1840,17 @@ nav a[aria-current=page]:after {
   .architecture { padding:16px; }
   .architecture li, .prose .architecture li { padding:12px; }
   .architecture strong { font-size:14px; }
-  .architecture-stack { font-size:10px; }
-  .architecture-feedback { font-size:10px; }
+  .architecture-location { font-size:10px; }
+  .architecture-stack { font-size:12px; }
+  .architecture-feedback { font-size:12px; }
+  .architecture figcaption { font-size:11px; }
+  .filter, .text-link { min-height:44px; }
+}
+@media(max-width:480px) {
+  .architecture ol, .prose .architecture ol { grid-template-columns:minmax(0,1fr); }
+  .architecture strong { font-size:16px; }
 }
 @media(max-width:370px) {
   .featured-project { padding:16px; }
   .featured-copy h3 { font-size:23px; }
-  .architecture ol, .prose .architecture ol { grid-template-columns:minmax(0,1fr); }
 }
