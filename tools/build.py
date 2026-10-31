@@ -17,7 +17,6 @@ EXPERIENCES = json.loads((ROOT / "content/experience.json").read_text())
 TEMPLATE = Template((ROOT / "templates/base.html").read_text())
 ASSET_VERSION = hashlib.sha256((ROOT / 'assets/site.css').read_bytes() + (ROOT / 'assets/site.js').read_bytes()).hexdigest()[:12]
 ARTICLE_PATH = "/2025/02/22/端到端模型/"
-ARTICLE_TITLE = "端到端模型与传统算法：对比与实现"
 NOTES = json.loads((ROOT / 'content/notes.json').read_text())
 GENERATED = []
 
@@ -224,22 +223,21 @@ def about():
 
 
 def article():
-    source = (ROOT / 'content/end-to-end.html').read_text()
-    # Horizontal scrolling is confined to tables on narrow screens.
-    source = source.replace('<table>', '<div class="table-wrap"><table>').replace('</table>', '</table></div>')
-    headings = re.findall(r'<h2 id="([^"]+)">(.*?)</h2>', source)
-    toc = ''.join(f'<a href="#{esc(anchor)}">{re.sub("<[^>]+>", "", title)}</a>' for anchor, title in headings)
-    body = f'''<div class="page-heading"><a class="crumb" href="/list/">← 全部笔记</a>{eyebrow('FIELD NOTES / LEARNING')}<h1>{ARTICLE_TITLE}</h1><p>梳理数据驱动与基于模型的控制思路，记录早期学习中的基本概念。</p><div class="article-date">发布于 2025-02-22 · 原文更新于 2025-03-05</div>{tags(['机器人', '控制算法'])}</div>
-    <div class="detail-layout article-layout"><article class="prose"><div class="callout">这是一篇早期学习笔记。文中的优缺点与对比表是概括性整理；实际精度、实时性、计算成本与泛化能力取决于任务、数据、控制器及软硬件实现，不能仅由“端到端”或“传统算法”的分类判断。</div>{source}<div class="related-note">继续阅读：<a href="/projects/sim2sim/">跨仿真引擎的策略评测</a></div></article><aside class="detail-aside"><h2>CONTENTS</h2><nav class="article-toc" aria-label="文章目录">{toc}</nav></aside></div>'''
-    write_page(ARTICLE_PATH, ARTICLE_TITLE, '端到端模型与传统算法的早期学习笔记，整理基本概念、实现过程和控制方法的差异。', body, 'notes', 'article')
     for note in NOTES:
-        if note['path'] == ARTICLE_PATH:
-            continue
         source = (ROOT / 'content' / note['source']).read_text()
+        # Keep wide tables scrollable without widening the article or the page.
+        source = source.replace('<table>', '<div class="table-wrap"><table>').replace('</table>', '</table></div>')
         headings = re.findall(r'<h2 id="([^"]+)">(.*?)</h2>', source)
         toc = ''.join(f'<a href="#{esc(anchor)}">{esc(re.sub("<[^>]+>", "", title))}</a>' for anchor, title in headings)
-        body = f'''<div class="page-heading"><a class="crumb" href="/list/">← 全部笔记</a>{eyebrow('FIELD NOTES / ENGINEERING')}<h1>{esc(note['title'])}</h1><p>{esc(note['summary'])}</p><div class="article-date">发布于 {esc(note['date'])} · {esc(note['kind'])}</div>{tags(note['tags'])}</div>
-        <div class="detail-layout article-layout"><article class="prose">{source}<div class="related-note">项目案例：<a href="/projects/roboarena/">RoboArena 的系统架构与我的工作 →</a></div></article><aside class="detail-aside"><h2>CONTENTS</h2><nav class="article-toc" aria-label="文章目录">{toc}</nav></aside></div>'''
+        directory = f'<aside class="detail-aside article-aside" aria-label="阅读导航"><details class="article-directory" data-article-directory open><summary>文章目录 <span>{len(headings)} 节</span></summary><nav class="article-toc" aria-label="文章目录">{toc}</nav></details></aside>'
+        published, updated = esc(note['date']), esc(note.get('updated', note['date']))
+        dates = f'发布于 <time datetime="{published}">{published}</time> <span>更新于 <time datetime="{updated}">{updated}</time></span>'
+        project = next(p for p in PROJECTS if p['slug'] == note['related_project'])
+        related = f'<div class="related-note">相关项目：<a href="/projects/{esc(project["slug"])}/">{esc(project["title"])} →</a></div>'
+        early_note = '<div class="callout">这是一篇早期学习笔记。文中的优缺点与对比表是概括性整理；实际精度、实时性、计算成本与泛化能力取决于任务、数据、控制器及软硬件实现，不能仅由“端到端”或“传统算法”的分类判断。</div>' if note['path'] == ARTICLE_PATH else ''
+        label = 'FIELD NOTES / ENGINEERING' if note['kind'] == '工程笔记' else 'FIELD NOTES / LEARNING'
+        body = f'''<div class="page-heading"><a class="crumb" href="/list/">← 全部笔记</a>{eyebrow(label)}<h1>{esc(note['title'])}</h1><p>{esc(note['summary'])}</p><div class="article-date">{dates}</div>{tags(note['tags'])}</div>
+        <div class="detail-layout article-layout"><article class="prose">{early_note}{source}{related}</article>{directory}</div>'''
         write_page(note['path'], note['title'], note['summary'], body, 'notes', 'article')
 
 

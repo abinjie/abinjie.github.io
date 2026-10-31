@@ -16,6 +16,14 @@ document.querySelectorAll('[data-project-filter]').forEach(button => {
 // Filters progressively enhance the complete server-rendered project list.
 document.querySelectorAll('[data-project-filter]').forEach(button => { button.hidden = false; });
 
+// Native details remain usable without JavaScript; adapt the initial state to the viewport.
+document.querySelectorAll('[data-article-directory]').forEach(directory => {
+  const narrowScreen = window.matchMedia('(max-width: 760px)');
+  const adaptDirectory = () => { directory.open = !narrowScreen.matches; };
+  adaptDirectory();
+  narrowScreen.addEventListener('change', adaptDirectory);
+});
+
 document.querySelectorAll('[data-video-player]').forEach(player => {
   const video = player.querySelector('video');
   const launch = player.querySelector('.video-launch');

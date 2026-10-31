@@ -13,8 +13,8 @@
   <title>从仿真状态到机器人动作：RoboArena 的闭环链路 · 宾杰</title>
   <link rel="canonical" href="https://abinjie.github.io/2026/10/31/roboarena-loop/">
   <link rel="icon" type="image/svg+xml" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=ed59c5710b35">
-  <script src="/assets/site.js?v=ed59c5710b35" defer></script>
+  <link rel="stylesheet" href="/assets/site.css?v=499ff03163c5">
+  <script src="/assets/site.js?v=499ff03163c5" defer></script>
 </head>
 <body id="top">
   <a class="skip-link" href="#main">跳到正文</a>
@@ -23,7 +23,7 @@
     <nav aria-label="主导航"><a href="/">首页</a><a href="/projects/">项目</a><a href="/list/" aria-current="page">笔记</a><a href="/about/">关于</a></nav>
     <a class="header-contact" href="mailto:binjie6707@gmail.com">联系我 <span aria-hidden="true">↗</span></a>
   </header>
-  <main id="main" class="wrap"><div class="page-heading"><a class="crumb" href="/list/">← 全部笔记</a><div class="eyebrow">FIELD NOTES / ENGINEERING</div><h1>从仿真状态到机器人动作：RoboArena 的闭环链路</h1><p>沿着状态、视觉观测、动作与反馈，拆解本地物理仿真、云端 3DGS 渲染和 VLA 推理如何连接。</p><div class="article-date">发布于 2026-10-31 · 工程笔记</div><div class="tags"><span class="tag">机器人</span><span class="tag">仿真架构</span><span class="tag">模型评测</span></div></div>
+  <main id="main" class="wrap"><div class="page-heading"><a class="crumb" href="/list/">← 全部笔记</a><div class="eyebrow">FIELD NOTES / ENGINEERING</div><h1>从仿真状态到机器人动作：RoboArena 的闭环链路</h1><p>沿着状态、视觉观测、动作与反馈，拆解本地物理仿真、云端 3DGS 渲染和 VLA 推理如何连接。</p><div class="article-date">发布于 <time datetime="2026-10-31">2026-10-31</time> <span>更新于 <time datetime="2026-10-31">2026-10-31</time></span></div><div class="tags"><span class="tag">机器人</span><span class="tag">仿真架构</span><span class="tag">模型评测</span></div></div>
         <div class="detail-layout article-layout"><article class="prose"><p>RoboArena 是我在实习期间参与构建的机器人仿真与模型测评平台。它基于 Isaac Sim，面向 Franka / UR5 操作任务，将本地物理仿真、云端 3DGS 渲染和 VLA 模型推理连接起来。这篇笔记沿着一次交互的数据流，说明各个模块的职责，以及“闭环”具体指什么。</p>
 <h2 id="state">01 · 从仿真状态开始</h2>
 <p>链路的起点是本地 Isaac Sim。它负责物理仿真与机器人动力学，维护任务执行中的机器人和环境状态。状态进入渲染服务后，才成为下一步视觉观测的依据。</p>
@@ -41,7 +41,7 @@
 <h2 id="evaluation">从架构说明走向实验报告</h2>
 <p>上面说明的是项目架构与已整理的工作范围。若要进一步判断不同模型的表现，一份实验报告还需要交代具体任务、初始条件、模型版本、重复次数和评价指标；分析运行效率时，也需要区分仿真、渲染、推理和通信各环节的耗时。</p>
 <p>这些是读者评估实验时需要的信息。本文聚焦系统链路，不给出尚未整理的模型排名、成功率或延迟结论。</p>
-<div class="related-note">项目案例：<a href="/projects/roboarena/">RoboArena 的系统架构与我的工作 →</a></div></article><aside class="detail-aside"><h2>CONTENTS</h2><nav class="article-toc" aria-label="文章目录"><a href="#state">01 · 从仿真状态开始</a><a href="#observation">02 · 从状态到视觉观测</a><a href="#action">03 · 从视觉观测到动作</a><a href="#feedback">04 · 状态回传，形成下一轮交互</a><a href="#evaluation">从架构说明走向实验报告</a></nav></aside></div></main>
+<div class="related-note">相关项目：<a href="/projects/roboarena/">RoboArena 模型测评平台 →</a></div></article><aside class="detail-aside article-aside" aria-label="阅读导航"><details class="article-directory" data-article-directory open><summary>文章目录 <span>5 节</span></summary><nav class="article-toc" aria-label="文章目录"><a href="#state">01 · 从仿真状态开始</a><a href="#observation">02 · 从状态到视觉观测</a><a href="#action">03 · 从视觉观测到动作</a><a href="#feedback">04 · 状态回传，形成下一轮交互</a><a href="#evaluation">从架构说明走向实验报告</a></nav></details></aside></div></main>
   <footer class="site-footer wrap">
     <div><a class="footer-name" href="/">宾杰 <span>/</span> BINJIE</a><p>在仿真中构建，在真实世界中验证。</p></div>
     <div class="footer-links"><a href="https://github.com/abinjie" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="mailto:binjie6707@gmail.com">Email ↗</a><a href="/about/">关于本站</a></div>

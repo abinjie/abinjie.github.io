@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="端到端模型与传统算法的早期学习笔记，整理基本概念、实现过程和控制方法的差异。">
+  <meta name="description" content="从控制与建模的视角，整理端到端模型和传统算法的基本思路、适用条件与实现流程。">
   <meta name="theme-color" content="#f7f7f2">
   <meta property="og:type" content="article">
   <meta property="og:title" content="端到端模型与传统算法：对比与实现 · 宾杰">
-  <meta property="og:description" content="端到端模型与传统算法的早期学习笔记，整理基本概念、实现过程和控制方法的差异。">
+  <meta property="og:description" content="从控制与建模的视角，整理端到端模型和传统算法的基本思路、适用条件与实现流程。">
   <meta property="og:url" content="https://abinjie.github.io/2025/02/22/%E7%AB%AF%E5%88%B0%E7%AB%AF%E6%A8%A1%E5%9E%8B/">
   <meta property="og:locale" content="zh_CN">
   <title>端到端模型与传统算法：对比与实现 · 宾杰</title>
   <link rel="canonical" href="https://abinjie.github.io/2025/02/22/%E7%AB%AF%E5%88%B0%E7%AB%AF%E6%A8%A1%E5%9E%8B/">
   <link rel="icon" type="image/svg+xml" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=ed59c5710b35">
-  <script src="/assets/site.js?v=ed59c5710b35" defer></script>
+  <link rel="stylesheet" href="/assets/site.css?v=499ff03163c5">
+  <script src="/assets/site.js?v=499ff03163c5" defer></script>
 </head>
 <body id="top">
   <a class="skip-link" href="#main">跳到正文</a>
@@ -23,8 +23,8 @@
     <nav aria-label="主导航"><a href="/">首页</a><a href="/projects/">项目</a><a href="/list/" aria-current="page">笔记</a><a href="/about/">关于</a></nav>
     <a class="header-contact" href="mailto:binjie6707@gmail.com">联系我 <span aria-hidden="true">↗</span></a>
   </header>
-  <main id="main" class="wrap"><div class="page-heading"><a class="crumb" href="/list/">← 全部笔记</a><div class="eyebrow">FIELD NOTES / LEARNING</div><h1>端到端模型与传统算法：对比与实现</h1><p>梳理数据驱动与基于模型的控制思路，记录早期学习中的基本概念。</p><div class="article-date">发布于 2025-02-22 · 原文更新于 2025-03-05</div><div class="tags"><span class="tag">机器人</span><span class="tag">控制算法</span></div></div>
-    <div class="detail-layout article-layout"><article class="prose"><div class="callout">这是一篇早期学习笔记。文中的优缺点与对比表是概括性整理；实际精度、实时性、计算成本与泛化能力取决于任务、数据、控制器及软硬件实现，不能仅由“端到端”或“传统算法”的分类判断。</div><p>在机器人控制、自动驾驶等领域，常用的两类方法是<strong>端到端模型</strong>和<strong>传统算法</strong>。本文将对这两种方法进行详细对比，并介绍端到端模型的实现过程、常见架构及优缺点。</p>
+  <main id="main" class="wrap"><div class="page-heading"><a class="crumb" href="/list/">← 全部笔记</a><div class="eyebrow">FIELD NOTES / LEARNING</div><h1>端到端模型与传统算法：对比与实现</h1><p>从控制与建模的视角，整理端到端模型和传统算法的基本思路、适用条件与实现流程。</p><div class="article-date">发布于 <time datetime="2025-02-22">2025-02-22</time> <span>更新于 <time datetime="2025-03-05">2025-03-05</time></span></div><div class="tags"><span class="tag">机器人</span><span class="tag">控制算法</span></div></div>
+        <div class="detail-layout article-layout"><article class="prose"><div class="callout">这是一篇早期学习笔记。文中的优缺点与对比表是概括性整理；实际精度、实时性、计算成本与泛化能力取决于任务、数据、控制器及软硬件实现，不能仅由“端到端”或“传统算法”的分类判断。</div><p>在机器人控制、自动驾驶等领域，常用的两类方法是<strong>端到端模型</strong>和<strong>传统算法</strong>。本文将对这两种方法进行详细对比，并介绍端到端模型的实现过程、常见架构及优缺点。</p>
 <h2 id="1-端到端模型">1. 端到端模型</h2><h3 id="1-1-定义">1.1 定义</h3><p>端到端模型指的是通过神经网络等机器学习模型直接将输入映射到输出，不依赖于传统的建模过程。对于机器人控制任务，端到端模型可以直接将传感器输入（如图像、激光雷达数据等）映射到控制动作（如机械臂的关节角度或移动位置）。</p>
 <h3 id="1-2-特点">1.2 特点</h3><ul>
 <li><strong>无需手动设计特征</strong>：端到端模型通过数据驱动的方式，自动学习任务相关的特征，避免了手动设计特征的复杂性。</li>
@@ -142,7 +142,7 @@
 </li>
 </ul>
 <p>根据实际需求，选择合适的控制方法可以更好地完成任务。在一些动态环境或具有学习需求的任务中，端到端模型具有明显优势；而在一些标准化、精度要求高的任务中，传统算法依然是主流。</p>
-<div class="related-note">继续阅读：<a href="/projects/sim2sim/">跨仿真引擎的策略评测</a></div></article><aside class="detail-aside"><h2>CONTENTS</h2><nav class="article-toc" aria-label="文章目录"><a href="#1-端到端模型">1. 端到端模型</a><a href="#2-传统算法">2. 传统算法</a><a href="#3-端到端模型的实现">3. 端到端模型的实现</a><a href="#4-端到端模型与传统算法对比">4. 端到端模型与传统算法对比</a><a href="#5-总结">5. 总结</a></nav></aside></div></main>
+<div class="related-note">相关项目：<a href="/projects/sim2sim/">跨仿真引擎的策略评测 →</a></div></article><aside class="detail-aside article-aside" aria-label="阅读导航"><details class="article-directory" data-article-directory open><summary>文章目录 <span>5 节</span></summary><nav class="article-toc" aria-label="文章目录"><a href="#1-端到端模型">1. 端到端模型</a><a href="#2-传统算法">2. 传统算法</a><a href="#3-端到端模型的实现">3. 端到端模型的实现</a><a href="#4-端到端模型与传统算法对比">4. 端到端模型与传统算法对比</a><a href="#5-总结">5. 总结</a></nav></details></aside></div></main>
   <footer class="site-footer wrap">
     <div><a class="footer-name" href="/">宾杰 <span>/</span> BINJIE</a><p>在仿真中构建，在真实世界中验证。</p></div>
     <div class="footer-links"><a href="https://github.com/abinjie" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="mailto:binjie6707@gmail.com">Email ↗</a><a href="/about/">关于本站</a></div>

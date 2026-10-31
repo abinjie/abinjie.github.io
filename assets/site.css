@@ -999,6 +999,17 @@ nav a[aria-current=page]:after {
   color:var(--muted);
   margin-top:22px;
 }
+.article-date>span { display:inline-block; margin-left:20px; }
+.article-aside { position:sticky; top:24px; max-height:calc(100vh - 48px); overflow-y:auto; }
+.article-directory summary {
+  cursor:pointer;
+  font-size:13px;
+  color:var(--ink);
+  padding:6px 0 14px;
+}
+.article-directory summary>span { margin-left:12px; color:var(--muted); font-size:11px; }
+.article-directory .article-toc { margin-left:0; gap:0; }
+.prose h2:target { color:var(--green); }
 .article-layout .prose {
   min-width:0;
 }
@@ -1385,6 +1396,11 @@ nav a[aria-current=page]:after {
   .article-layout .detail-aside {
     grid-row:1;
   }
+  .article-layout .article-aside { position:static; max-height:none; overflow:visible; padding-top:12px; }
+  .article-directory summary { min-height:44px; padding-block:10px; }
+  .article-directory .article-toc { grid-template-columns:minmax(0,1fr); }
+  .article-directory .article-toc a { font-size:13px; min-height:44px; padding-block:10px; }
+  .article-date>span { margin-left:12px; }
   .article-toc {
     display:grid;
     grid-template-columns:repeat(2,1fr);
