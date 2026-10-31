@@ -1,449 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-    
-    <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
-    <meta name="description" content="index" />
-    <meta name="hexo-theme-A4" content="v1.9.6" />
-    <link rel="alternate icon" type="image/webp" href="https://www.helloimg.com/i/2025/02/01/679d98986f215.jpg">
-    <title>binjie&#39;s blog</title>
-
-    
-        
-<link rel="stylesheet" href="/css/highlight/style1.css">
-
-        
-<link rel="stylesheet" href="/css/reset.css">
-
-        
-<link rel="stylesheet" href="/css/markdown.css">
-
-        
-<link rel="stylesheet" href="/css/fonts.css">
- 
-         <!--注意：首页既不是post也不是page-->
-        
-        
-        
-<link rel="stylesheet" href="/css/ui.css">
- 
-        
-<link rel="stylesheet" href="/css/style.css">
-
-
-        
-            <!--返回顶部css-->
-            
-<link rel="stylesheet" href="/css/returnToTop.css">
-
-            
-<link rel="stylesheet" href="/css/unicons.css">
-
-        
-        
-            <!--目录-->
-            
-<link rel="stylesheet" href="/css/toc.css">
-
-        
-    
-
-    
-        
-<link rel="stylesheet" href="/css/returnToLastPage.css">
-
-    
-    
-   
-<link rel="stylesheet" href="/css/lightgallery-bundle.min.css">
-
-
-<meta name="generator" content="Hexo 7.3.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="宾杰，机器人工程师，专注仿真与算法。分享 Isaac Sim、MuJoCo、Sim2Sim / Sim2Real、MPM 物理仿真与合成数据的项目实践。">
+  <meta name="theme-color" content="#f7f7f2">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="宾杰 · 机器人工程师，仿真与算法">
+  <meta property="og:description" content="宾杰，机器人工程师，专注仿真与算法。分享 Isaac Sim、MuJoCo、Sim2Sim / Sim2Real、MPM 物理仿真与合成数据的项目实践。">
+  <meta property="og:url" content="https://abinjie.github.io/">
+  <meta property="og:locale" content="zh_CN">
+  <title>宾杰 · 机器人工程师，仿真与算法</title>
+  <link rel="canonical" href="https://abinjie.github.io/">
+  <link rel="icon" type="image/svg+xml" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css">
+  <script src="/assets/site.js" defer></script>
 </head>
-    
-    
-
-    
-    
-
-
-
-    
-
-    
-    
-
-    
-    
-    
-    <body>
-        <script src="/js/darkmode-js.min.js"></script>
-        
-        <script>
-            const options = {
-                bottom: '40px', // default: '32px'
-                right: 'unset', // default: '32px'
-                left: '42px', // default: 'unset'
-                time: '0.3s', // default: '0.3s'
-                mixColor: '#fff', // default: '#fff'
-                backgroundColor: ' #e4e4e4 ',  // default: '#fff'
-                buttonColorDark: '#100f2c',  // default: '#100f2c'
-                buttonColorLight: '#fff', // default: '#fff'
-                saveInCookies: true, // default: true,
-                label: '🌓', // default: ''
-                autoMatchOsTheme: true // default: true
-            }
-            const darkmode = new Darkmode(options);
-            darkmode.showWidget();
-        </script>
-        
-        <!-- 
-            <div class="left-toc-container">
-                <nav id="toc" class="bs-docs-sidebar"></nav>
-            </div>
-         -->
-        
-        <div class="paper">
-            
-            
-            
-            
-                <div class="shadow-drop-2-bottom paper-main">
-                    
-
-
-<div class="header">
-    <div class="header-container">
-        <img style="
-        width: 56px;
-        height: auto;" alt="^-^" cache-control="max-age=86400" class="header-img" src="https://www.helloimg.com/i/2025/02/01/679d98986f215.jpg" width="10%"></img>
-        <div class="header-content">
-            <a class="logo" href="/">binjie&#39;s blog</a> 
-            <span class="description"></span> 
-        </div>
-        
-    </div>
-    
-   
-    <ul class="nav">
-        
-            
-                <li><a href="/">首页</a></li>
-            
-        
-            
-                <li><a href="/list/">文章</a></li>
-            
-        
-            
-                <li><a href="/about/">💻 关于</a></li>
-            
-        
-            
-                <li><a href="/tags/">标签</a></li>
-            
-        
-            
-                <li><a href="/categories/">分类</a></li>
-            
-        
-    </ul>
-</div> 
-        
-                    
-                    
-
-                    
-                    
-                    
-                    <!--说明是文章post页面-->
-                    
-                        <div class="post-main">
-    
-
-    
-
-    
-
-    <div class="post-md">
-        
-            
-        
-        
-        <div class=".article-gallery">
-
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <title>简历展示</title> -->
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            justify-content: center; /* 水平居中 */
-            align-items: center; /* 垂直居中 */
-            line-height: 1.5;
-        }
-        .section {
-            margin-bottom: 40px;
-        }
-        .section h2 {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        .item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 15px;
-        }
-        .item-left {
-            display: flex;
-            align-items: center;
-        }
-        .item-left img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-right: 15px;
-        }
-        .item-left .info {
-            display: flex;
-            flex-direction: column;
-        }
-        .item-left .info span {
-            font-size: 14px;
-        }
-        .item-right {
-            color: gray;
-            font-size: 14px;
-        }
-    </style>
-
-
-
-    <div class="section">
-    <h2>个人简介：</h2>
-        <div class="item">
-            <div class="item-left">
-                <a target="_blank" rel="noopener" href="https://www.helloimg.com/i/2025/02/01/679d98986f215.jpg" title="个人照片" class="gallery-item" style="box-shadow: none;"> <img src="https://www.helloimg.com/i/2025/02/01/679d98986f215.jpg" alt="个人照片"></a>
-                <div class="info">
-                    <span>宾杰</span>
-                    <span>嵌入式开发工程师</span>
-                </div>
-            </div>
-            <!-- <div class="item-right">2004.02 - 2024.08</div> -->
-        </div>
-        <!-- <h2>工作经历</h2>
-        <div class="item">
-            <div class="item-left">
-                <a href="icon1.png" title="公司Logo" class="gallery-item" style="box-shadow: none;"> <img src="icon1.png" alt="公司Logo"></a>
-                <div class="info">
-                    <span>原则科技</span>
-                    <span>软件开发工程师</span>
-                </div>
-            </div>
-            <div class="item-right">2024.02 - 2024.08</div>
-        </div>
-        <div class="item">
-            <div class="item-left">
-                <a href="icon2.png" title="公司Logo" class="gallery-item" style="box-shadow: none;"> <img src="icon2.png" alt="公司Logo"></a>
-                <div class="info">
-                    <span>图慧科技</span>
-                    <span>前端开发工程师</span>
-                </div>
-            </div>
-            <div class="item-right">2023.06 - 2024.02</div>
-        </div>
-        <div class="item">
-            <div class="item-left">
-                <a href="icon3.png" title="公司Logo" class="gallery-item" style="box-shadow: none;"> <img src="icon3.png" alt="公司Logo"></a>
-                <div class="info">
-                    <span>NIO 蔚来</span>
-                    <span>前端开发实习生</span>
-                </div>
-            </div>
-            <div class="item-right">2023.02 - 2023.05</div>
-        </div>
-    </div> -->
-    <div class="section">
-        <h2>教育背景：</h2>
-        <div class="item">
-            <div class="item-left">
-                <a target="_blank" rel="noopener" href="https://www.helloimg.com/i/2025/02/02/679f8dea21c28.png" title="学校Logo" class="gallery-item" style="box-shadow: none;"> <img src="https://www.helloimg.com/i/2025/02/02/679f8dea21c28.png" alt="学校Logo"></a>
-                <div class="info">
-                    <span>无锡学院</span>
-                    <span>电子信息工程学院</span>
-                    <span>人工智能专业</span>
-                </div>
-            </div>
-            <div class="item-right">2023.09 - 2027.06</div>
-        </div>
-    </div>
-
-
-
-<h3 id="🎯项目："><a href="#🎯项目：" class="headerlink" title="🎯项目："></a>🎯项目：</h3></div></div>
-    </div>
-    <div class="post-meta">
-        <i>
-        
-        </i>
-    </div>
-    <br>
-    
-    
-        
-            
-    
-            <div class="post-footer-pre-next">
-                
-
-                
-            </div>
-    
-        
-    
-
-    
-        
-
-     
-</div>
-
-
-
-                                      
-                    
-                    
-                    <div class="footer">
-    
-        <span> 
-            © 2021-2025 by binjie 
-
-            
-                
-
-            
-        </span>
-       
-    
-</div>
-
-
-
-<!--这是指一条线往下的内容-->
-<div class="footer-last">
-    
-            <span></span>
-            
-                <span class="footer-last-span-right"><i>这里是<a target="_blank" rel="noopener" href="https://github.com/abinjie">宾杰</a>的小站</i></span>
-            
-    
-</div>
-
-
-    
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-
-    <!--目录-->
-    
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" ></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" ></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js" type="text/javascript" ></script>
-        
-<script src="/js/toc.js"></script>
-
-    
-
-    
-<script src="/js/randomHeaderContent.js"></script>
-
-    <!--回到顶部按钮-->
-    
-        
-<script src="/js/returnToTop.js"></script>
-
-    
-
-    
-        
-<script src="/js/returnToLastPage.js"></script>
-
-    
-
-
-
-
-
-<script src="/js/lightgallery/lightgallery.umd.min.js"></script>
-
-
-
-<script src="/js/lightgallery/plugins/lg-thumbnail.umd.min.js"></script>
-
-
-
-<script src="/js/lightgallery/plugins/lg-fullscreen.umd.min.js"></script>
-
-
-<script src="/js/lightgallery/plugins/lg-autoplay.umd.min.js"></script>
-
-
-<script src="/js/lightgallery/plugins/lg-zoom.umd.min.js"></script>
-
-
-<script src="/js/lightgallery/plugins/lg-rotate.umd.min.js"></script>
-
-
-<script src="/js/lightgallery/plugins/lg-paper.umd.min.js"></script>
-
-
-
-
-<script type="text/javascript">
-     
-    if (typeof lightGallery !== "undefined") {
-        var options1 = {
-            selector: '.gallery-item',
-            plugins: [lgThumbnail, lgFullscreen, lgAutoplay, lgZoom, lgRotate, lgPager], // 启用插件
-            thumbnail: true,          // 显示缩略图
-            zoom: true,               // 启用缩放功
-            rotate: true,             // 启用旋转功能能
-            autoplay: true,        // 启用自动播放功能
-            fullScreen: true,      // 启用全屏功能
-            pager: false, //页码,
-            zoomFromOrigin: true,   // 从原始位置缩放
-            actualSize: true,       // 启用查看实际大小的功能
-            enableZoomAfter: 300,    // 延迟缩放，确保图片加载完成后可缩放
-        };
-        lightGallery(document.getElementsByClassName('.article-gallery')[0], options1); // 修复选择器
-    }
-    
-</script>
-
-
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> 
-
-                </div>
-            
-            
-                <!-- 回到顶部的按钮-->  
-                <div class="progress-wrap shadow-drop-2-bottom">
-                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
-                    </svg>
-                </div>
-            
-            
-                <!-- 返回的按钮-->  
-                <div class="return-to-last-progress-wrap shadow-drop-2-bottom">
-                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
-                    </svg>
-                </div>
-            
-    </body>
+<body id="top">
+  <a class="skip-link" href="#main">跳到正文</a>
+  <header class="site-header wrap">
+    <a class="brand" href="/" aria-label="宾杰，返回首页"><span class="brand-mark" aria-hidden="true">b<span>.</span></span><span>BINJIE<span class="brand-caption">ROBOTICS & SIMULATION</span></span></a>
+    <nav aria-label="主导航"><a href="/" aria-current="page">首页</a><a href="/projects/">项目</a><a href="/list/">笔记</a><a href="/about/">关于</a></nav>
+    <a class="header-contact" href="mailto:binjie6707@gmail.com">联系我 <span aria-hidden="true">↗</span></a>
+  </header>
+  <main id="main" class="wrap"><section class="hero" aria-labelledby="hero-title">
+      <div><div class="eyebrow">ROBOTICS ENGINEER / SIMULATION & ALGORITHMS</div>
+        <h1 id="hero-title">你好，我是宾杰。<br>在仿真中，<br><em>走向真实世界。</em></h1>
+        <p class="hero-role">机器人工程师 · 仿真与算法</p>
+        <p class="hero-description">围绕机器人仿真、策略评测与合成数据，构建从物理引擎到真实机器人的验证闭环。关注 Isaac Sim / MuJoCo、Sim2Real 与物理仿真的工程实现。</p>
+        <div class="hero-actions"><a class="button" href="/projects/">查看项目 <span aria-hidden="true">↗</span></a><a class="text-link" href="/about/">了解我的经历 <span aria-hidden="true">→</span></a></div>
+        <div class="hero-meta"><span>WUXI UNIVERSITY / AI</span><span>2027 届本科</span></div>
+      </div>
+      <figure class="hero-figure"><img src="/assets/simulation.svg" alt="四足机器人站立在网格地面上的仿真概念示意图" width="620" height="570" fetchpriority="high"><figcaption>图 / 四足机器人仿真概念示意</figcaption></figure>
+    </section>
+    <section class="focus-strip" aria-label="主要方向">
+      <div class="focus-item"><span class="focus-number">01</span><div><h2>物理仿真</h2><p>Isaac Sim · MuJoCo · Newton MPM</p></div></div>
+      <div class="focus-item"><span class="focus-number">02</span><div><h2>策略评测与迁移</h2><p>Sim2Sim · Sim2Real · VLA / RL</p></div></div>
+      <div class="focus-item"><span class="focus-number">03</span><div><h2>感知与合成数据</h2><p>3D Gaussian Splatting · 多传感器仿真</p></div></div>
+    </section>
+    <section class="section" aria-labelledby="selected-projects"><div class="section-heading"><div><div class="eyebrow">SELECTED WORK / 01</div><h2><span id="selected-projects">精选项目</span></h2></div><a class="text-link" href="/projects/">全部项目 <span aria-hidden="true">↗</span></a></div><div><a class="project-row" href="/projects/sim2sim/" data-project-category="策略评测">
+      <span class="project-number">01</span>
+      <div><div class="project-subtitle">MuJoCo → Isaac Sim</div><h3 class="project-title">跨仿真引擎的策略评测</h3><p>让同一运控策略在两个物理引擎中自动执行、记录与比较，把迁移中的差异变成可定位的问题。</p><div class="tags"><span class="tag">MuJoCo</span><span class="tag">Isaac Sim</span><span class="tag">Sim2Sim</span><span class="tag">Rerun</span></div></div>
+      <div class="mini-diagram" aria-hidden="true"><div class="diagram-line"><span class="diagram-node">MuJoCo</span><span class="diagram-arrow">⇄</span><span class="diagram-node solid">Isaac Sim</span></div><div class="diagram-caption">POLICY → EVALUATE → COMPARE</div></div><span class="project-arrow" aria-hidden="true">↗</span></a><a class="project-row" href="/projects/mpm/" data-project-category="物理仿真">
+      <span class="project-number">02</span>
+      <div><div class="project-subtitle">Newton MPM · 粒子与接触</div><h3 class="project-title">轮腿机器狗的沙地仿真</h3><p>构建约 200 万粒子的沙地环境，优化求解性能，评测沉陷、打滑与颗粒扰动下的运控表现。</p><div class="tags"><span class="tag">Newton MPM</span><span class="tag">颗粒仿真</span><span class="tag">性能优化</span></div></div>
+      <div class="mini-diagram" aria-hidden="true"><div class="diagram-line"><span class="diagram-node">PARTICLES</span><span class="diagram-arrow">⇄</span><span class="diagram-node solid">GRID</span></div><div class="diagram-caption">NEWTON MPM / TERRAIN CONTACT</div></div><span class="project-arrow" aria-hidden="true">↗</span></a><a class="project-row" href="/projects/roboarena/" data-project-category="模型评测">
+      <span class="project-number">03</span>
+      <div><div class="project-subtitle">仿真—渲染—决策—控制</div><h3 class="project-title">RoboArena 模型测评平台</h3><p>连接本地物理仿真、云端 3DGS 渲染和 VLA 推理，在统一环境中完成闭环模型测评。</p><div class="tags"><span class="tag">Isaac Sim</span><span class="tag">3DGS</span><span class="tag">VLA / RL</span><span class="tag">Docker</span></div></div>
+      <div class="mini-diagram" aria-hidden="true"><div class="diagram-line"><span class="diagram-node">PHYSICS</span><span class="diagram-arrow">⇄</span><span class="diagram-node solid">3DGS + VLA</span></div><div class="diagram-caption">STATE → RENDER → ACTION</div></div><span class="project-arrow" aria-hidden="true">↗</span></a></div></section>
+    <section class="section" aria-labelledby="experience-title"><div class="section-heading"><div><div class="eyebrow">EXPERIENCE / 02</div><h2><span id="experience-title">从仿真到实机的实践</span></h2></div><a class="text-link" href="/about/#experience">完整经历 <span aria-hidden="true">↗</span></a></div><div class="experience-row"><div class="experience-time">2026.02 — 2026.10</div><div><h3>上海桦之坚科技</h3><p class="experience-team">具身智能部 · 仿真算法组</p><p>面向轮腿机器狗，开展 Newton MPM 颗粒仿真优化、MuJoCo → Isaac Sim 自动评测、多传感器采集与合成数据管线开发。</p><div class="tags"><span class="tag">Newton MPM</span><span class="tag">Sim2Sim</span><span class="tag">Isaac Sim</span></div></div></div><div class="experience-row"><div class="experience-time">2025.08 — 2025.12</div><div><h3>原力灵机 × 旷视研究院</h3><p class="experience-team">基础算法组 · 实习</p><p>开发机器人操作任务仿真与模型测评平台，集成 3DGS / PGSR 渲染、云端 VLA 推理，并参与真实机器狗的 Sim2Real 路径跟踪评测。</p><div class="tags"><span class="tag">RoboArena</span><span class="tag">VLA / RL</span><span class="tag">3DGS</span></div></div></div><div class="experience-row"><div class="experience-time">2025.02 — 2025.06</div><div><h3>求之科技 · DISCOVER Robotics</h3><p class="experience-team">机器人仿真开发实习生</p><p>参与 DISCOVERSE 高保真仿真平台开发，结合 MuJoCo、3D Gaussian Splatting 与 ROS 2，支持场景构建、传感器数据处理与机器人系统联调。</p><div class="tags"><span class="tag">DISCOVERSE</span><span class="tag">MuJoCo</span><span class="tag">ROS 2</span></div></div></div></section>
+    <section class="section" aria-labelledby="notes-title"><div class="section-heading"><div><div class="eyebrow">FIELD NOTES / 03</div><h2><span id="notes-title">学习与记录</span></h2></div><a class="text-link" href="/list/">全部笔记 <span aria-hidden="true">↗</span></a></div><a class="note-row" href="/2025/02/22/端到端模型/"><span class="note-date">2025.02.22 / 学习笔记</span><div><h3 class="note-title">端到端模型与传统算法：对比与实现</h3><p>从控制与建模的视角，整理端到端模型和传统算法的基本思路、适用条件与实现流程。</p><div class="tags"><span class="tag">机器人</span><span class="tag">控制算法</span></div></div><span aria-hidden="true">↗</span></a></section>
+    <section class="contact-block" aria-labelledby="contact-title"><div><div class="eyebrow">LET’S CONNECT</div><h2 id="contact-title">聊聊机器人与仿真。</h2><p>欢迎交流仿真算法、策略评测与机器人系统的工程实践。</p></div><a href="mailto:binjie6707@gmail.com">binjie6707@gmail.com <span aria-hidden="true">↗</span></a></section></main>
+  <footer class="site-footer wrap">
+    <div><a class="footer-name" href="/">宾杰 <span>/</span> BINJIE</a><p>在仿真中构建，在真实世界中验证。</p></div>
+    <div class="footer-links"><a href="https://github.com/abinjie" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="mailto:binjie6707@gmail.com">Email ↗</a><a href="/about/">关于本站</a></div>
+    <div class="footer-bottom"><span>© 2026 宾杰</span><span>ROBOTICS · SIMULATION · ALGORITHMS</span><a href="#top" class="back-top" aria-label="返回页面顶部">回到顶部 ↑</a></div>
+  </footer>
+</body>
 </html>

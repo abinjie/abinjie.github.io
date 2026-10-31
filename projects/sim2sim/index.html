@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="让同一运控策略在两个物理引擎中自动执行、记录与比较，把迁移中的差异变成可定位的问题。">
+  <meta name="theme-color" content="#f7f7f2">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="跨仿真引擎的策略评测 · 宾杰">
+  <meta property="og:description" content="让同一运控策略在两个物理引擎中自动执行、记录与比较，把迁移中的差异变成可定位的问题。">
+  <meta property="og:url" content="https://abinjie.github.io/projects/sim2sim/">
+  <meta property="og:locale" content="zh_CN">
+  <title>跨仿真引擎的策略评测 · 宾杰</title>
+  <link rel="canonical" href="https://abinjie.github.io/projects/sim2sim/">
+  <link rel="icon" type="image/svg+xml" href="/assets/mark.svg">
+  <link rel="stylesheet" href="/assets/site.css">
+  <script src="/assets/site.js" defer></script>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">跳到正文</a>
+  <header class="site-header wrap">
+    <a class="brand" href="/" aria-label="宾杰，返回首页"><span class="brand-mark" aria-hidden="true">b<span>.</span></span><span>BINJIE<span class="brand-caption">ROBOTICS & SIMULATION</span></span></a>
+    <nav aria-label="主导航"><a href="/">首页</a><a href="/projects/" aria-current="page">项目</a><a href="/list/">笔记</a><a href="/about/">关于</a></nav>
+    <a class="header-contact" href="mailto:binjie6707@gmail.com">联系我 <span aria-hidden="true">↗</span></a>
+  </header>
+  <main id="main" class="wrap"><div class="page-heading"><a class="crumb" href="/projects/">← 全部项目</a><div class="eyebrow">PROJECT 01 / 策略评测</div><h1>跨仿真引擎的策略评测</h1><p>让同一运控策略在两个物理引擎中自动执行、记录与比较，把迁移中的差异变成可定位的问题。</p><div class="page-kicker">2026 · 实习项目</div></div>
+        <div class="detail-layout"><article class="prose"><h2>项目背景</h2><p>面向轮腿机器狗的上下车与地形任务，搭建从 MuJoCo 到 Isaac Sim 的自动评测链路，支持同一策略在双引擎下的结果对比。</p><h2>我的工作</h2><h3>控制接口对齐</h3><p>系统性对齐关节顺序映射、PD / torque 控制模式与 ArticulationRoot 定义，处理策略接入时的接口差异。</p><h3>动力学与坐标对齐</h3><p>梳理坐标系、质量和惯量等动力学参数差异，支撑双引擎任务执行与评测。</p><h3>异常定位工具</h3><p>基于 Rerun 录制关节位置、速度、力矩和机身姿态，辅助分析关节抖动、力矩饱和、姿态漂移与落足异常。</p><h2>链路概览</h2><div class="flow"><div class="flow-step"><span>01</span>同一运控策略</div><div class="flow-step"><span>02</span>双引擎执行</div><div class="flow-step"><span>03</span>状态记录</div><div class="flow-step"><span>04</span>指标与异常对比</div></div><p class="figure-note">方案示意，用于说明模块关系。</p><h2>项目结果</h2><p>完成 MuJoCo → Isaac Sim 的自动执行、指标评价与结果对比链路，支撑轮腿机器狗上下车与地形任务验证。</p><div class="callout">这里展示评测链路与个人负责的工作，不将双引擎结果一致等同于已解决所有 Sim2Real 差异。</div></article>
+        <aside class="detail-aside" aria-label="项目信息"><h2>FOCUS</h2><p>策略评测</p><h2>STACK</h2><div class="tags"><span class="tag">MuJoCo</span><span class="tag">Isaac Sim</span><span class="tag">Sim2Sim</span><span class="tag">Rerun</span></div><h2>MORE</h2><a href="/about/#experience">相关实习经历 ↗</a><a href="mailto:binjie6707@gmail.com">交流这个项目 ↗</a></aside></div>
+        <div class="project-next"><a href="/projects/">← 返回全部项目</a><a href="/projects/mpm/">下一个：轮腿机器狗的沙地仿真 →</a></div></main>
+  <footer class="site-footer wrap">
+    <div><a class="footer-name" href="/">宾杰 <span>/</span> BINJIE</a><p>在仿真中构建，在真实世界中验证。</p></div>
+    <div class="footer-links"><a href="https://github.com/abinjie" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="mailto:binjie6707@gmail.com">Email ↗</a><a href="/about/">关于本站</a></div>
+    <div class="footer-bottom"><span>© 2026 宾杰</span><span>ROBOTICS · SIMULATION · ALGORITHMS</span><a href="#top" class="back-top" aria-label="返回页面顶部">回到顶部 ↑</a></div>
+  </footer>
+</body>
+</html>
