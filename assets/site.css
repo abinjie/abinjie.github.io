@@ -1362,6 +1362,12 @@ nav a[aria-current=page]:after {
   letter-spacing:1px;
   color:var(--muted);
 }
+.hero.hero-text {
+  grid-template-columns:1fr;
+}
+.hero-text .hero-description {
+  max-width:680px;
+}
 .hero-media {
   display:block;
   position:relative;

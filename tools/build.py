@@ -11,6 +11,7 @@ from urllib.parse import quote
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://abinjie.github.io"
 PROFILE = json.loads((ROOT / "content/profile.json").read_text())
+SHOW_QUADRUPED_MEDIA = PROFILE.get('show_quadruped_media', True)
 PROJECTS = json.loads((ROOT / "content/projects.json").read_text())
 TEMPLATE = Template((ROOT / "templates/base.html").read_text())
 ASSET_VERSION = hashlib.sha256((ROOT / 'assets/site.css').read_bytes() + (ROOT / 'assets/site.js').read_bytes()).hexdigest()[:12]
@@ -46,8 +47,12 @@ def write_page(path, title, description, body, active="", og_type="website", can
     GENERATED.append(path)
 
 
+def media_enabled(project):
+    return SHOW_QUADRUPED_MEDIA or project['slug'] not in ('sim2sim', 'mpm')
+
+
 def mini_diagram(project):
-    if project.get('cover'):
+    if project.get('cover') and media_enabled(project):
         return f'<div class="mini-diagram project-preview" aria-hidden="true"><img src="{esc(project["cover"])}" alt="" width="480" height="270" loading="lazy"></div>'
     pairs = {
         "sim2sim": ("MuJoCo", "Isaac Sim", "POLICY → EVALUATE → COMPARE"),
@@ -68,7 +73,7 @@ def project_row(project):
 
 
 def project_media(project):
-    if not project.get('media'):
+    if not project.get('media') or not media_enabled(project):
         return ''
     groups = []
     for group in project['media']:
@@ -102,7 +107,9 @@ def contact():
 
 
 def home():
-    body = f'''<section class="hero" aria-labelledby="hero-title">
+    hero_figure = '''<figure class="hero-figure"><div class="hero-image-meta"><span>NEWTON MPM</span><span>01 / TERRAIN CONTACT</span></div><a class="hero-media" href="/projects/mpm/#demo" aria-label="观看轮腿机器狗沙地仿真演示"><img src="/assets/media/robot-sand-hero.webp" alt="白色轮腿机器狗在沙地中行走，足部周围形成颗粒扰动" width="1000" height="1000" fetchpriority="high"><span class="hero-play" aria-hidden="true">▶</span></a><figcaption><span>轮腿机器狗 · 沙地接触</span><a href="/projects/mpm/#demo">观看演示 ↗</a></figcaption></figure>''' if SHOW_QUADRUPED_MEDIA else ''
+    hero_class = 'hero' if SHOW_QUADRUPED_MEDIA else 'hero hero-text'
+    body = f'''<section class="{hero_class}" aria-labelledby="hero-title">
       <div><div class="eyebrow">ROBOTICS ENGINEER / SIMULATION & ALGORITHMS</div>
         <h1 id="hero-title">你好，我是宾杰。<br>在仿真中，<br><em>走向真实世界。</em></h1>
         <p class="hero-role">机器人工程师 · 仿真与算法</p>
@@ -110,7 +117,7 @@ def home():
         <div class="hero-actions"><a class="button" href="/projects/">查看项目 <span aria-hidden="true">↗</span></a><a class="text-link" href="/about/">了解我的经历 <span aria-hidden="true">→</span></a></div>
         <div class="hero-meta"><span>WUXI UNIVERSITY / AI</span><span>2027 届本科</span></div>
       </div>
-      <figure class="hero-figure"><div class="hero-image-meta"><span>NEWTON MPM</span><span>01 / TERRAIN CONTACT</span></div><a class="hero-media" href="/projects/mpm/#demo" aria-label="观看轮腿机器狗沙地仿真演示"><img src="/assets/media/robot-sand-hero.webp" alt="白色轮腿机器狗在沙地中行走，足部周围形成颗粒扰动" width="1000" height="1000" fetchpriority="high"><span class="hero-play" aria-hidden="true">▶</span></a><figcaption><span>轮腿机器狗 · 沙地接触</span><a href="/projects/mpm/#demo">观看演示 ↗</a></figcaption></figure>
+      {hero_figure}
     </section>
     <section class="focus-strip" aria-label="主要方向">
       <div class="focus-item"><span class="focus-number">01</span><div><h2>物理仿真</h2><p>Isaac Sim · MuJoCo · Newton MPM</p></div></div>
@@ -139,7 +146,7 @@ def project_pages():
         next_project = PROJECTS[(i + 1) % len(PROJECTS)]
         body = f'''<div class="page-heading"><a class="crumb" href="/projects/">← 全部项目</a>{eyebrow('PROJECT ' + p['number'] + ' / ' + p['category'])}<h1>{esc(p['title'])}</h1><p>{esc(p['summary'])}</p><div class="page-kicker">{esc(p['period'])}</div></div>
         <div class="detail-layout"><article class="prose"><h2>项目背景</h2><p>{esc(p['context'])}</p>{project_media(p)}<h2>我的工作</h2>{work}<h2>链路概览</h2><div class="flow">{flow}</div><h2>项目结果</h2>{metrics}<p>{esc(p['result'])}</p>{note}</article>
-        <aside class="detail-aside" aria-label="项目信息"><h2>FOCUS</h2><p>{esc(p['category'])}</p><h2>STACK</h2>{tags(p['tags'])}<h2>MORE</h2>{'<a href="#demo">演示与记录 ↓</a>' if p.get('media') else ''}<a href="/about/#experience">相关实习经历 ↗</a><a href="mailto:{PROFILE['email']}">交流这个项目 ↗</a></aside></div>
+        <aside class="detail-aside" aria-label="项目信息"><h2>FOCUS</h2><p>{esc(p['category'])}</p><h2>STACK</h2>{tags(p['tags'])}<h2>MORE</h2>{'<a href="#demo">演示与记录 ↓</a>' if p.get('media') and media_enabled(p) else ''}<a href="/about/#experience">相关实习经历 ↗</a><a href="mailto:{PROFILE['email']}">交流这个项目 ↗</a></aside></div>
         <div class="project-next"><a href="/projects/">← 返回全部项目</a><a href="/projects/{next_project['slug']}/">下一个：{esc(next_project['title'])} →</a></div>'''
         write_page(f'/projects/{p["slug"]}/', p['title'], p['summary'], body, 'projects')
 
