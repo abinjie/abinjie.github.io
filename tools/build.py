@@ -128,7 +128,7 @@ def about():
     skills = ''.join(f'<div class="skill-row"><h3>{esc(s["title"])}</h3><p>{esc(s["items"])}</p></div>' for s in PROFILE['skills'])
     awards = ''.join(f'<li>{esc(a)}</li>' for a in PROFILE['awards'])
     body = f'''<div class="page-heading">{eyebrow('ABOUT / BINJIE')}<h1>机器人工程师，<br>专注仿真与算法。</h1><p>用工程实践连接物理仿真、算法评测与真实机器人。</p></div>
-    <div class="page-content"><div class="about-grid"><div><div class="about-intro"><p>我关心的不只是机器人能否在仿真中完成任务，还包括如何对齐环境、定位差异，并在实机上验证。</p></div>
+    <div class="page-content"><div class="about-grid"><div><div class="about-intro"><p>我关注机器人从仿真到实机的验证过程：对齐环境、定位差异，并验证任务表现。</p></div>
     <p class="section-intro">我是宾杰，无锡学院人工智能专业本科生。三段机器人相关实习让我逐步聚焦于仿真与算法：从 MuJoCo 与 3DGS 仿真环境，到 Isaac Sim 模型测评，再到颗粒物理仿真、跨引擎策略验证和多传感器数据生产。</p>
     <p class="section-intro">我的项目覆盖四足、人形与机械臂平台。希望持续深入物理仿真、Sim2Real 与自动化评测，把可复现的实验和可定位的系统作为算法迭代的基础。</p>
     <section class="about-section" id="experience"><h2>实习经历</h2>{experience()}</section>
