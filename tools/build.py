@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Build the static GitHub Pages site. Python 3, standard library only."""
 import html
+import hashlib
 import json
 import re
 from pathlib import Path
@@ -12,6 +13,7 @@ BASE_URL = "https://abinjie.github.io"
 PROFILE = json.loads((ROOT / "content/profile.json").read_text())
 PROJECTS = json.loads((ROOT / "content/projects.json").read_text())
 TEMPLATE = Template((ROOT / "templates/base.html").read_text())
+ASSET_VERSION = hashlib.sha256((ROOT / 'assets/site.css').read_bytes() + (ROOT / 'assets/site.js').read_bytes()).hexdigest()[:12]
 ARTICLE_PATH = "/2025/02/22/端到端模型/"
 ARTICLE_TITLE = "端到端模型与传统算法：对比与实现"
 GENERATED = []
@@ -36,7 +38,7 @@ def write_page(path, title, description, body, active="", og_type="website", can
     output = TEMPLATE.substitute(
         title=esc(title + " · 宾杰" if title != "宾杰 · 机器人工程师，仿真与算法" else title),
         description=esc(description), canonical=BASE_URL + quote(canonical, safe="/"),
-        body=body, navigation=nav, main_class="wrap", og_type=og_type,
+        body=body, navigation=nav, main_class="wrap", og_type=og_type, asset_version=ASSET_VERSION,
     )
     target = ROOT / (path.lstrip('/') + 'index.html' if path.endswith('/') else path.lstrip('/'))
     target.parent.mkdir(parents=True, exist_ok=True)
@@ -45,6 +47,8 @@ def write_page(path, title, description, body, active="", og_type="website", can
 
 
 def mini_diagram(project):
+    if project.get('cover'):
+        return f'<div class="mini-diagram project-preview" aria-hidden="true"><img src="{esc(project["cover"])}" alt="" width="480" height="270" loading="lazy"></div>'
     pairs = {
         "sim2sim": ("MuJoCo", "Isaac Sim", "POLICY → EVALUATE → COMPARE"),
         "mpm": ("PARTICLES", "GRID", "NEWTON MPM / TERRAIN CONTACT"),
@@ -61,6 +65,23 @@ def project_row(project):
       <span class="project-number">{project['number']}</span>
       <div><div class="project-subtitle">{esc(project['subtitle'])}</div><h3 class="project-title">{esc(project['title'])}</h3><p>{esc(project['summary'])}</p>{tags(project['tags'])}</div>
       {mini_diagram(project)}<span class="project-arrow" aria-hidden="true">↗</span></a>'''
+
+
+def project_media(project):
+    if not project.get('media'):
+        return ''
+    groups = []
+    for group in project['media']:
+        figures = []
+        for item in group['items']:
+            caption = f'<figcaption><strong>{esc(item["title"])}</strong><span>{esc(item["caption"])}</span></figcaption>'
+            if item['type'] == 'video':
+                asset = f'''<div class="video-player" data-video-player><video controls muted playsinline preload="none" poster="{esc(item['poster'])}" width="{item['width']}" height="{item['height']}" aria-label="{esc(item['title'])}"><source src="{esc(item['src'])}" type="video/mp4"><a href="{esc(item['src'])}">打开视频：{esc(item['title'])}</a></video><button class="video-launch" type="button" hidden aria-label="播放：{esc(item['title'])}"><img src="{esc(item['poster'])}" alt="" width="{item['width']}" height="{item['height']}" loading="lazy"><span class="video-play" aria-hidden="true">▶ <span>播放演示</span></span></button><p class="video-status" role="status" hidden>视频暂时无法播放，请重试或<a href="{esc(item['src'])}">直接打开视频</a>。</p></div>'''
+            else:
+                asset = f'<a class="media-image-link" href="{esc(item["src"])}" target="_blank" rel="noopener" aria-label="查看大图：{esc(item["title"])}"><img src="{esc(item["src"])}" alt="{esc(item["alt"])}" width="{item["width"]}" height="{item["height"]}" loading="lazy"></a>'
+            figures.append(f'<figure class="project-media">{asset}{caption}</figure>')
+        groups.append(f'<div class="media-group media-{esc(group["layout"])}">{"".join(figures)}</div>')
+    return '<section class="project-demos" id="demo"><h2>演示与记录</h2>' + ''.join(groups) + '</section>'
 
 
 def experience():
@@ -89,7 +110,7 @@ def home():
         <div class="hero-actions"><a class="button" href="/projects/">查看项目 <span aria-hidden="true">↗</span></a><a class="text-link" href="/about/">了解我的经历 <span aria-hidden="true">→</span></a></div>
         <div class="hero-meta"><span>WUXI UNIVERSITY / AI</span><span>2027 届本科</span></div>
       </div>
-      <figure class="hero-figure"><img src="/assets/simulation.svg" alt="四足机器人站立在网格地面上的仿真概念示意图" width="620" height="570" fetchpriority="high"><figcaption>图 / 四足机器人仿真概念示意</figcaption></figure>
+      <figure class="hero-figure"><div class="hero-image-meta"><span>NEWTON MPM</span><span>01 / TERRAIN CONTACT</span></div><a class="hero-media" href="/projects/mpm/#demo" aria-label="观看轮腿机器狗沙地仿真演示"><img src="/assets/media/robot-sand-hero.webp" alt="白色轮腿机器狗在沙地中行走，足部周围形成颗粒扰动" width="1000" height="1000" fetchpriority="high"><span class="hero-play" aria-hidden="true">▶</span></a><figcaption><span>轮腿机器狗 · 沙地接触</span><a href="/projects/mpm/#demo">观看演示 ↗</a></figcaption></figure>
     </section>
     <section class="focus-strip" aria-label="主要方向">
       <div class="focus-item"><span class="focus-number">01</span><div><h2>物理仿真</h2><p>Isaac Sim · MuJoCo · Newton MPM</p></div></div>
@@ -117,8 +138,8 @@ def project_pages():
         note = f'<div class="callout">{esc(p["note"])}</div>' if p.get('note') else ''
         next_project = PROJECTS[(i + 1) % len(PROJECTS)]
         body = f'''<div class="page-heading"><a class="crumb" href="/projects/">← 全部项目</a>{eyebrow('PROJECT ' + p['number'] + ' / ' + p['category'])}<h1>{esc(p['title'])}</h1><p>{esc(p['summary'])}</p><div class="page-kicker">{esc(p['period'])}</div></div>
-        <div class="detail-layout"><article class="prose"><h2>项目背景</h2><p>{esc(p['context'])}</p><h2>我的工作</h2>{work}<h2>链路概览</h2><div class="flow">{flow}</div><p class="figure-note">方案示意，用于说明模块关系。</p><h2>项目结果</h2>{metrics}<p>{esc(p['result'])}</p>{note}</article>
-        <aside class="detail-aside" aria-label="项目信息"><h2>FOCUS</h2><p>{esc(p['category'])}</p><h2>STACK</h2>{tags(p['tags'])}<h2>MORE</h2><a href="/about/#experience">相关实习经历 ↗</a><a href="mailto:{PROFILE['email']}">交流这个项目 ↗</a></aside></div>
+        <div class="detail-layout"><article class="prose"><h2>项目背景</h2><p>{esc(p['context'])}</p>{project_media(p)}<h2>我的工作</h2>{work}<h2>链路概览</h2><div class="flow">{flow}</div><h2>项目结果</h2>{metrics}<p>{esc(p['result'])}</p>{note}</article>
+        <aside class="detail-aside" aria-label="项目信息"><h2>FOCUS</h2><p>{esc(p['category'])}</p><h2>STACK</h2>{tags(p['tags'])}<h2>MORE</h2>{'<a href="#demo">演示与记录 ↓</a>' if p.get('media') else ''}<a href="/about/#experience">相关实习经历 ↗</a><a href="mailto:{PROFILE['email']}">交流这个项目 ↗</a></aside></div>
         <div class="project-next"><a href="/projects/">← 返回全部项目</a><a href="/projects/{next_project['slug']}/">下一个：{esc(next_project['title'])} →</a></div>'''
         write_page(f'/projects/{p["slug"]}/', p['title'], p['summary'], body, 'projects')
 
@@ -136,7 +157,7 @@ def about():
     <section class="about-section"><h2>教育背景</h2><div class="education-school">{education['school']}</div><div class="education-meta">{education['department']} · {education['major']}</div><div class="education-meta">{education['period']}</div></section>
     <section class="about-section"><h2>竞赛与研究记录</h2><ul class="award-list">{awards}</ul><div class="prose"><h3>论文与专利</h3><p>《基于改进 YOLOv5s 的交通标志检测算法》，2024 年 6 月公开。<br>专利：一种基于改进 YOLOv5s 模型的交通标识检测方法。<br>申请号：202410462556.6 · 公布号：CN118298404A。</p></div></section>
     <section class="about-section"><h2>相关公开项目</h2><p class="section-intro">实习经历涉及的公开平台与项目。以下链接用于了解项目背景，个人参与范围见上方经历。</p><div class="link-list"><a href="https://github.com/TATP-233/DISCOVERSE" target="_blank" rel="noopener noreferrer">DISCOVERSE ↗</a><a href="https://robochallenge.ai/" target="_blank" rel="noopener noreferrer">RoboChallenge ↗</a><a href="https://dexbotic.com/" target="_blank" rel="noopener noreferrer">Dexbotic ↗</a></div></section></div>
-    <aside class="about-sidebar" aria-label="联系与个人方向"><h2>CONTACT</h2><a href="mailto:{PROFILE['email']}">{PROFILE['email']} ↗</a><a href="{PROFILE['github']}" target="_blank" rel="noopener noreferrer">github.com/abinjie ↗</a><p>欢迎机器人仿真、算法评测相关的技术交流与工程合作。</p><h2>FOCUS</h2><p>物理仿真<br>Sim2Sim / Sim2Real<br>模型评测与合成数据</p><h2>THIS SITE</h2><p>这里整理我的项目实践与学习记录。项目页介绍个人参与内容；示意图用于解释系统关系。</p></aside></div></div>'''
+    <aside class="about-sidebar" aria-label="联系与个人方向"><h2>CONTACT</h2><a href="mailto:{PROFILE['email']}">{PROFILE['email']} ↗</a><a href="{PROFILE['github']}" target="_blank" rel="noopener noreferrer">github.com/abinjie ↗</a><p>欢迎机器人仿真、算法评测相关的技术交流与工程合作。</p><h2>FOCUS</h2><p>物理仿真<br>Sim2Sim / Sim2Real<br>模型评测与合成数据</p></aside></div></div>'''
     write_page('/about/', '关于宾杰', '宾杰的教育、三段机器人实习、技术能力与项目经历。职业方向：机器人工程师，偏仿真与算法。', body, 'about')
 
 

@@ -15,3 +15,24 @@ document.querySelectorAll('[data-project-filter]').forEach(button => {
 });
 // Filters progressively enhance the complete server-rendered project list.
 document.querySelectorAll('[data-project-filter]').forEach(button => { button.hidden = false; });
+
+document.querySelectorAll('[data-video-player]').forEach(player => {
+  const video = player.querySelector('video');
+  const launch = player.querySelector('.video-launch');
+  const status = player.querySelector('.video-status');
+  video.hidden = true;
+  launch.hidden = false;
+  launch.addEventListener('click', async () => {
+    status.hidden = true;
+    launch.hidden = true;
+    video.hidden = false;
+    try {
+      await video.play();
+      video.focus();
+    } catch {
+      video.hidden = true;
+      launch.hidden = false;
+      status.hidden = false;
+    }
+  });
+});

@@ -13,8 +13,8 @@
   <title>宾杰 · 机器人工程师，仿真与算法</title>
   <link rel="canonical" href="https://abinjie.github.io/">
   <link rel="icon" type="image/svg+xml" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css">
-  <script src="/assets/site.js" defer></script>
+  <link rel="stylesheet" href="/assets/site.css?v=81b1d9e61247">
+  <script src="/assets/site.js?v=81b1d9e61247" defer></script>
 </head>
 <body id="top">
   <a class="skip-link" href="#main">跳到正文</a>
@@ -31,7 +31,7 @@
         <div class="hero-actions"><a class="button" href="/projects/">查看项目 <span aria-hidden="true">↗</span></a><a class="text-link" href="/about/">了解我的经历 <span aria-hidden="true">→</span></a></div>
         <div class="hero-meta"><span>WUXI UNIVERSITY / AI</span><span>2027 届本科</span></div>
       </div>
-      <figure class="hero-figure"><img src="/assets/simulation.svg" alt="四足机器人站立在网格地面上的仿真概念示意图" width="620" height="570" fetchpriority="high"><figcaption>图 / 四足机器人仿真概念示意</figcaption></figure>
+      <figure class="hero-figure"><div class="hero-image-meta"><span>NEWTON MPM</span><span>01 / TERRAIN CONTACT</span></div><a class="hero-media" href="/projects/mpm/#demo" aria-label="观看轮腿机器狗沙地仿真演示"><img src="/assets/media/robot-sand-hero.webp" alt="白色轮腿机器狗在沙地中行走，足部周围形成颗粒扰动" width="1000" height="1000" fetchpriority="high"><span class="hero-play" aria-hidden="true">▶</span></a><figcaption><span>轮腿机器狗 · 沙地接触</span><a href="/projects/mpm/#demo">观看演示 ↗</a></figcaption></figure>
     </section>
     <section class="focus-strip" aria-label="主要方向">
       <div class="focus-item"><span class="focus-number">01</span><div><h2>物理仿真</h2><p>Isaac Sim · MuJoCo · Newton MPM</p></div></div>
@@ -41,10 +41,10 @@
     <section class="section" aria-labelledby="selected-projects"><div class="section-heading"><div><div class="eyebrow">SELECTED WORK / 01</div><h2><span id="selected-projects">精选项目</span></h2></div><a class="text-link" href="/projects/">全部项目 <span aria-hidden="true">↗</span></a></div><div><a class="project-row" href="/projects/sim2sim/" data-project-category="策略评测">
       <span class="project-number">01</span>
       <div><div class="project-subtitle">MuJoCo → Isaac Sim</div><h3 class="project-title">跨仿真引擎的策略评测</h3><p>让同一运控策略在两个物理引擎中自动执行、记录与比较，把迁移中的差异变成可定位的问题。</p><div class="tags"><span class="tag">MuJoCo</span><span class="tag">Isaac Sim</span><span class="tag">Sim2Sim</span><span class="tag">Rerun</span></div></div>
-      <div class="mini-diagram" aria-hidden="true"><div class="diagram-line"><span class="diagram-node">MuJoCo</span><span class="diagram-arrow">⇄</span><span class="diagram-node solid">Isaac Sim</span></div><div class="diagram-caption">POLICY → EVALUATE → COMPARE</div></div><span class="project-arrow" aria-hidden="true">↗</span></a><a class="project-row" href="/projects/mpm/" data-project-category="物理仿真">
+      <div class="mini-diagram project-preview" aria-hidden="true"><img src="/assets/media/sim2sim-mujoco.webp" alt="" width="480" height="270" loading="lazy"></div><span class="project-arrow" aria-hidden="true">↗</span></a><a class="project-row" href="/projects/mpm/" data-project-category="物理仿真">
       <span class="project-number">02</span>
       <div><div class="project-subtitle">Newton MPM · 粒子与接触</div><h3 class="project-title">轮腿机器狗的沙地仿真</h3><p>构建约 200 万粒子的沙地环境，优化求解性能，评测沉陷、打滑与颗粒扰动下的运控表现。</p><div class="tags"><span class="tag">Newton MPM</span><span class="tag">颗粒仿真</span><span class="tag">性能优化</span></div></div>
-      <div class="mini-diagram" aria-hidden="true"><div class="diagram-line"><span class="diagram-node">PARTICLES</span><span class="diagram-arrow">⇄</span><span class="diagram-node solid">GRID</span></div><div class="diagram-caption">NEWTON MPM / TERRAIN CONTACT</div></div><span class="project-arrow" aria-hidden="true">↗</span></a><a class="project-row" href="/projects/roboarena/" data-project-category="模型评测">
+      <div class="mini-diagram project-preview" aria-hidden="true"><img src="/assets/media/robot-sand-hero.webp" alt="" width="480" height="270" loading="lazy"></div><span class="project-arrow" aria-hidden="true">↗</span></a><a class="project-row" href="/projects/roboarena/" data-project-category="模型评测">
       <span class="project-number">03</span>
       <div><div class="project-subtitle">仿真—渲染—决策—控制</div><h3 class="project-title">RoboArena 模型测评平台</h3><p>连接本地物理仿真、云端 3DGS 渲染和 VLA 推理，在统一环境中完成闭环模型测评。</p><div class="tags"><span class="tag">Isaac Sim</span><span class="tag">3DGS</span><span class="tag">VLA / RL</span><span class="tag">Docker</span></div></div>
       <div class="mini-diagram" aria-hidden="true"><div class="diagram-line"><span class="diagram-node">PHYSICS</span><span class="diagram-arrow">⇄</span><span class="diagram-node solid">3DGS + VLA</span></div><div class="diagram-caption">STATE → RENDER → ACTION</div></div><span class="project-arrow" aria-hidden="true">↗</span></a></div></section>
