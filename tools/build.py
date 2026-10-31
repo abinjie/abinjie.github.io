@@ -18,6 +18,7 @@ TEMPLATE = Template((ROOT / "templates/base.html").read_text())
 ASSET_VERSION = hashlib.sha256((ROOT / 'assets/site.css').read_bytes() + (ROOT / 'assets/site.js').read_bytes()).hexdigest()[:12]
 ARTICLE_PATH = "/2025/02/22/端到端模型/"
 ARTICLE_TITLE = "端到端模型与传统算法：对比与实现"
+NOTES = json.loads((ROOT / 'content/notes.json').read_text())
 GENERATED = []
 
 
@@ -90,7 +91,14 @@ def project_media(project):
     return '<section class="project-demos" id="demo"><h2>演示与记录</h2>' + ''.join(groups) + '</section>'
 
 
-def experience():
+def experience(compact=False):
+    if compact:
+        focus = {
+            'huazhijian': '物理仿真优化 · 跨引擎策略验证 · 数据采集',
+            'dexforce-megvii': '操作任务仿真 · 场景渲染 · 模型测评',
+            'discover': 'MuJoCo / 3DGS 仿真平台 · ROS 2 系统联调',
+        }
+        return '<div class="experience-summary">' + ''.join(f'''<a class="experience-brief" href="/experience/{item['slug']}/"><span class="experience-time">{esc(item['period'])}</span><div><h3>{esc(item['company'])}</h3><p>{esc(focus[item['slug']])}</p></div><span class="brief-arrow" aria-hidden="true">↗</span></a>''' for item in PROFILE['experience']) + '</div>'
     return ''.join(f'''<a class="experience-row experience-link" href="/experience/{item['slug']}/"><div class="experience-time">{esc(item['period'])}</div><div><h3><span>{esc(item['company'])}</span><span class="experience-arrow" aria-hidden="true">↗</span></h3><p class="experience-team">{esc(item['team'])}</p><p>{esc(item['summary'])}</p><div class="experience-row-bottom">{tags(item['tags'])}<span class="experience-read">查看经历 →</span></div></div></a>''' for item in PROFILE['experience'])
 
 
@@ -116,8 +124,31 @@ def experience_pages():
         write_page(f'/experience/{detail["slug"]}/', item['company'] + ' · 实习经历', item['summary'], body, 'about')
 
 
-def note_row():
-    return f'''<a class="note-row" href="{ARTICLE_PATH}"><span class="note-date">2025.02.22 / 学习笔记</span><div><h3 class="note-title">{ARTICLE_TITLE}</h3><p>从控制与建模的视角，整理端到端模型和传统算法的基本思路、适用条件与实现流程。</p>{tags(['机器人', '控制算法'])}</div><span aria-hidden="true">↗</span></a>'''
+def note_row(note):
+    return f'''<a class="note-row" href="{esc(note['path'])}"><span class="note-date">{esc(note['date'].replace('-', '.'))}<span class="note-kind">{esc(note['kind'])}</span></span><div><h3 class="note-title">{esc(note['title'])}</h3><p>{esc(note['summary'])}</p>{tags(note['tags'])}</div><span aria-hidden="true">↗</span></a>'''
+
+
+def architecture(compact=False):
+    steps = [
+        ('LOCAL / 01', '物理仿真', 'Isaac Sim · Franka / UR5', '维护机器人动力学与环境状态'),
+        ('CLOUD / 02', '视觉渲染', '3D Gaussian Splatting', '将仿真状态转为视觉观测'),
+        ('CLOUD / 03', '模型推理', 'VLA', '基于视觉结果预测动作序列'),
+        ('LOCAL / 04', '控制执行', 'Robot controller', '执行动作并回传更新后的状态'),
+    ]
+    nodes = ''.join(f'<li><span class="architecture-location">{location}</span><strong>{title}</strong><span class="architecture-stack">{stack}</span>' + ('' if compact else f'<p>{description}</p>') + '</li>' for location, title, stack, description in steps)
+    return f'''<figure class="architecture{' architecture-compact' if compact else ''}"><div class="architecture-heading"><span>ROBOARENA</span><span>LOCAL ↔ CLOUD</span></div><ol aria-label="RoboArena 闭环的四个步骤">{nodes}</ol><div class="architecture-feedback"><span aria-hidden="true">↺</span> 状态回传，进入下一轮仿真与决策</div><figcaption>系统链路示意 · 按 01 → 04 顺序执行</figcaption></figure>'''
+
+
+def featured_project():
+    project = next(p for p in PROJECTS if p['slug'] == 'roboarena')
+    return f'''<div class="featured-project"><div class="featured-copy"><div class="project-subtitle">FEATURED / 模型评测</div><h3>{esc(project['title'])}</h3><p>{esc(project['summary'])}</p>{tags(project['tags'])}<dl class="project-facts"><div><dt>平台</dt><dd>Franka / UR5</dd></div><div><dt>架构</dt><dd>本地仿真 + 云端渲染与推理</dd></div></dl><a class="text-link" href="/projects/roboarena/">查看架构与我的工作 <span aria-hidden="true">↗</span></a></div><a class="featured-visual" href="/projects/roboarena/" aria-label="查看 RoboArena 模型测评平台详情">{architecture(True)}</a></div>'''
+
+
+def roboarena_case():
+    return f'''<section id="architecture"><h2>系统架构</h2><p>这条链路将物理仿真、视觉渲染和模型推理分配到不同服务，再通过控制执行与状态回传连接成闭环。</p>{architecture()}</section>
+    <section id="decisions"><h2>拆分后的职责与接口</h2><div class="table-wrap"><table><thead><tr><th scope="col">模块</th><th scope="col">职责</th><th scope="col">传递到下一步的内容</th></tr></thead><tbody><tr><th scope="row">本地仿真</th><td>维护物理环境与机器人动力学</td><td>供渲染使用的仿真状态</td></tr><tr><th scope="row">云端渲染</th><td>通过 3DGS 生成视觉观测</td><td>供模型推理使用的视觉结果</td></tr><tr><th scope="row">云端推理</th><td>基于视觉输入预测动作</td><td>机器人待执行的动作序列</td></tr><tr><th scope="row">控制执行</th><td>执行动作并更新环境</td><td>供后续交互使用的新状态</td></tr></tbody></table></div>
+    <h3>为什么拆开物理、渲染与推理？</h3><p>项目通过云端推理与渲染解耦本地仿真计算负载。在描述这套架构时，可以分别观察物理执行、视觉生成和动作预测三个环节，也更容易说明不同模型如何接入同一条交互链路。</p>
+    <h3>闭环如何形成？</h3><p>一次动作预测只是其中一步。控制器执行动作后，新的仿真状态继续进入渲染与推理，形成多轮交互。这是该平台支持任务执行与策略评估的基础。</p></section>'''
 
 
 def section_heading(label, title, url='', link=''):
@@ -135,20 +166,15 @@ def home():
       <div><div class="eyebrow">ROBOTICS ENGINEER / SIMULATION & ALGORITHMS</div>
         <h1 id="hero-title">你好，我是宾杰。<br>在仿真中，<br><em>走向真实世界。</em></h1>
         <p class="hero-role">机器人工程师 · 仿真与算法</p>
-        <p class="hero-description">围绕机器人仿真、策略评测与合成数据，构建从物理引擎到真实机器人的验证闭环。关注 Isaac Sim / MuJoCo、Sim2Real 与物理仿真的工程实现。</p>
-        <div class="hero-actions"><a class="button" href="/projects/">查看项目 <span aria-hidden="true">↗</span></a><a class="text-link" href="/experience/">了解我的经历 <span aria-hidden="true">→</span></a></div>
+        <p class="hero-description">我做机器人仿真、策略评测与合成数据。用 Isaac Sim / MuJoCo 构建环境，对齐策略与传感器，让实验中的差异可以记录、比较和定位。</p>
+        <div class="hero-actions"><a class="button" href="#selected-projects">查看精选项目 <span aria-hidden="true">↓</span></a><a class="text-link" href="/about/">认识我 <span aria-hidden="true">→</span></a></div>
         <div class="hero-meta"><span>WUXI UNIVERSITY / AI</span><span>2027 届本科</span></div>
       </div>
 {hero_figure}
     </section>
-    <section class="focus-strip" aria-label="主要方向">
-      <div class="focus-item"><span class="focus-number">01</span><div><h2>物理仿真</h2><p>Isaac Sim · MuJoCo · Newton MPM</p></div></div>
-      <div class="focus-item"><span class="focus-number">02</span><div><h2>策略评测与迁移</h2><p>Sim2Sim · Sim2Real · VLA / RL</p></div></div>
-      <div class="focus-item"><span class="focus-number">03</span><div><h2>感知与合成数据</h2><p>3D Gaussian Splatting · 多传感器仿真</p></div></div>
-    </section>
-    <section class="section" aria-labelledby="selected-projects">{section_heading('SELECTED WORK / 01', '<span id="selected-projects">精选项目</span>', '/projects/', '全部项目')}<div>{''.join(project_row(p) for p in PROJECTS[:3])}</div></section>
-    <section class="section" aria-labelledby="experience-title">{section_heading('EXPERIENCE / 02', '<span id="experience-title"><a class="section-title-link" href="/experience/">从仿真到实机的实践 <span aria-hidden="true">↗</span></a></span>', '/experience/', '全部经历')}{experience()}</section>
-    <section class="section" aria-labelledby="notes-title">{section_heading('FIELD NOTES / 03', '<span id="notes-title">学习与记录</span>', '/list/', '全部笔记')}{note_row()}</section>
+    <section class="section selected-work" aria-labelledby="selected-projects">{section_heading('SELECTED WORK / 01', '<span id="selected-projects">精选项目</span>', '/projects/', '全部项目')}{featured_project()}<div class="supporting-projects">{''.join(project_row(p) for p in PROJECTS[:2])}</div></section>
+    <section class="section" aria-labelledby="experience-title">{section_heading('EXPERIENCE / 02', '<span id="experience-title"><a class="section-title-link" href="/experience/">从仿真到实机的实践 <span aria-hidden="true">↗</span></a></span>', '/experience/', '全部经历')}{experience(True)}</section>
+    <section class="section" aria-labelledby="notes-title">{section_heading('FIELD NOTES / 03', '<span id="notes-title">学习与记录</span>', '/list/', '全部笔记')}{''.join(note_row(note) for note in NOTES[:2])}</section>
     {contact()}'''
     desc = "宾杰，机器人工程师，专注仿真与算法。分享 Isaac Sim、MuJoCo、Sim2Sim / Sim2Real、MPM 物理仿真与合成数据的项目实践。"
     write_page('/', '宾杰 · 机器人工程师，仿真与算法', desc, body, 'home')
@@ -168,9 +194,14 @@ def project_pages():
         next_project = PROJECTS[(i + 1) % len(PROJECTS)]
         employer = {'sim2sim': 'huazhijian', 'mpm': 'huazhijian', 'synthetic-data': 'huazhijian', 'roboarena': 'dexforce-megvii'}.get(p['slug'])
         experience_url = f'/experience/{employer}/' if employer else '/experience/'
+        is_roboarena = p['slug'] == 'roboarena'
+        case = roboarena_case() if is_roboarena else ''
+        overview = '' if is_roboarena else f'<section id="flow"><h2>链路概览</h2><div class="flow">{flow}</div></section>'
+        related_note = '<div class="related-note">工程笔记：<a href="/2026/10/31/roboarena-loop/">从仿真状态到机器人动作：RoboArena 的闭环链路 →</a></div>' if is_roboarena else ''
+        toc = '<a href="#background">项目背景 ↓</a>' + ('<a href="#architecture">系统架构 ↓</a><a href="#decisions">模块职责 ↓</a>' if is_roboarena else '') + '<a href="#contribution">我的工作 ↓</a><a href="#results">项目结果 ↓</a>'
         body = f'''<div class="page-heading"><a class="crumb" href="/projects/">← 全部项目</a>{eyebrow('PROJECT ' + p['number'] + ' / ' + p['category'])}<h1>{esc(p['title'])}</h1><p>{esc(p['summary'])}</p><div class="page-kicker">{esc(p['period'])}</div></div>
-        <div class="detail-layout"><article class="prose"><h2>项目背景</h2><p>{esc(p['context'])}</p>{project_media(p)}<h2>我的工作</h2>{work}<h2>链路概览</h2><div class="flow">{flow}</div><h2>项目结果</h2>{metrics}<p>{esc(p['result'])}</p>{note}</article>
-        <aside class="detail-aside" aria-label="项目信息"><h2>FOCUS</h2><p>{esc(p['category'])}</p><h2>STACK</h2>{tags(p['tags'])}<h2>MORE</h2>{'<a href="#demo">演示与记录 ↓</a>' if p.get('media') and media_enabled(p) else ''}<a href="{experience_url}">{'相关实习经历' if employer else '我的实习经历'} ↗</a><a href="mailto:{PROFILE['email']}">交流这个项目 ↗</a></aside></div>
+        <div class="detail-layout"><article class="prose"><section id="background"><h2>项目背景</h2><p>{esc(p['context'])}</p></section>{project_media(p)}{case}<section id="contribution"><h2>我的工作</h2>{work}</section>{overview}<section id="results"><h2>项目结果</h2>{metrics}<p>{esc(p['result'])}</p>{note}</section>{related_note}</article>
+        <aside class="detail-aside" aria-label="项目信息"><h2>FOCUS</h2><p>{esc(p['category'])}</p><h2>STACK</h2>{tags(p['tags'])}<h2>ON THIS PAGE</h2>{toc}<h2 class="aside-more">MORE</h2>{'<a href="#demo">演示与记录 ↓</a>' if p.get('media') and media_enabled(p) else ''}<a href="{experience_url}">{'相关实习经历' if employer else '我的实习经历'} ↗</a><a href="mailto:{PROFILE['email']}">交流这个项目 ↗</a></aside></div>
         <div class="project-next"><a href="/projects/">← 返回全部项目</a><a href="/projects/{next_project['slug']}/">下一个：{esc(next_project['title'])} →</a></div>'''
         write_page(f'/projects/{p["slug"]}/', p['title'], p['summary'], body, 'projects')
 
@@ -183,7 +214,7 @@ def about():
     <div class="page-content"><div class="about-grid"><div><div class="about-intro"><p>我关注机器人从仿真到实机的验证过程：对齐环境、定位差异，并验证任务表现。</p></div>
     <p class="section-intro">我是宾杰，无锡学院人工智能专业本科生。三段机器人相关实习让我逐步聚焦于仿真与算法：从 MuJoCo 与 3DGS 仿真环境，到 Isaac Sim 模型测评，再到颗粒物理仿真、跨引擎策略验证和多传感器数据生产。</p>
     <p class="section-intro">我的项目覆盖四足、人形与机械臂平台。希望持续深入物理仿真、Sim2Real 与自动化评测，把可复现的实验和可定位的系统作为算法迭代的基础。</p>
-    <section class="about-section" id="experience"><h2>实习经历</h2>{experience()}</section>
+    <section class="about-section" id="experience"><h2>实习经历</h2>{experience(True)}</section>
     <section class="about-section" id="skills"><h2>技术能力</h2>{skills}<p class="section-intro">接触过的机器人平台：Unitree G1 / Go2、Franka Panda / FR3、UR5e、AgileX Piper、AIRBOT、OpenArm 与 ALOHA。</p></section>
     <section class="about-section"><h2>教育背景</h2><div class="education-school">{education['school']}</div><div class="education-meta">{education['department']} · {education['major']}</div><div class="education-meta">{education['period']}</div></section>
     <section class="about-section"><h2>竞赛与研究记录</h2><ul class="award-list">{awards}</ul><div class="prose"><h3>论文与专利</h3><p>《基于改进 YOLOv5s 的交通标志检测算法》，2024 年 6 月公开。<br>专利：一种基于改进 YOLOv5s 模型的交通标识检测方法。<br>申请号：202410462556.6 · 公布号：CN118298404A。</p></div></section>
@@ -201,27 +232,46 @@ def article():
     body = f'''<div class="page-heading"><a class="crumb" href="/list/">← 全部笔记</a>{eyebrow('FIELD NOTES / LEARNING')}<h1>{ARTICLE_TITLE}</h1><p>梳理数据驱动与基于模型的控制思路，记录早期学习中的基本概念。</p><div class="article-date">发布于 2025-02-22 · 原文更新于 2025-03-05</div>{tags(['机器人', '控制算法'])}</div>
     <div class="detail-layout article-layout"><article class="prose"><div class="callout">这是一篇早期学习笔记。文中的优缺点与对比表是概括性整理；实际精度、实时性、计算成本与泛化能力取决于任务、数据、控制器及软硬件实现，不能仅由“端到端”或“传统算法”的分类判断。</div>{source}<div class="related-note">继续阅读：<a href="/projects/sim2sim/">跨仿真引擎的策略评测</a></div></article><aside class="detail-aside"><h2>CONTENTS</h2><nav class="article-toc" aria-label="文章目录">{toc}</nav></aside></div>'''
     write_page(ARTICLE_PATH, ARTICLE_TITLE, '端到端模型与传统算法的早期学习笔记，整理基本概念、实现过程和控制方法的差异。', body, 'notes', 'article')
+    for note in NOTES:
+        if note['path'] == ARTICLE_PATH:
+            continue
+        source = (ROOT / 'content' / note['source']).read_text()
+        headings = re.findall(r'<h2 id="([^"]+)">(.*?)</h2>', source)
+        toc = ''.join(f'<a href="#{esc(anchor)}">{esc(re.sub("<[^>]+>", "", title))}</a>' for anchor, title in headings)
+        body = f'''<div class="page-heading"><a class="crumb" href="/list/">← 全部笔记</a>{eyebrow('FIELD NOTES / ENGINEERING')}<h1>{esc(note['title'])}</h1><p>{esc(note['summary'])}</p><div class="article-date">发布于 {esc(note['date'])} · {esc(note['kind'])}</div>{tags(note['tags'])}</div>
+        <div class="detail-layout article-layout"><article class="prose">{source}<div class="related-note">项目案例：<a href="/projects/roboarena/">RoboArena 的系统架构与我的工作 →</a></div></article><aside class="detail-aside"><h2>CONTENTS</h2><nav class="article-toc" aria-label="文章目录">{toc}</nav></aside></div>'''
+        write_page(note['path'], note['title'], note['summary'], body, 'notes', 'article')
 
 
 def note_indexes():
-    for path, title, label, intro in [
-        ('/list/', '学习与记录', 'FIELD NOTES', '记录机器人控制与算法学习中的思考。项目架构、个人工作与结果另见项目页。'),
-        ('/archives/', '笔记归档', 'ARCHIVE', '按时间回看学习记录。'),
-        ('/archives/2025/', '2025 年笔记', 'ARCHIVE / 2025', '这一年的机器人与算法学习记录。'),
-        ('/archives/2025/02/', '2025 年 2 月', 'ARCHIVE / 2025.02', '机器人控制与算法的基础整理。'),
-        ('/tags/机器人/', '机器人', 'TAG / ROBOTICS', '机器人控制与算法相关笔记。'),
-        ('/categories/技术/', '技术笔记', 'CATEGORY / ENGINEERING', '机器人与算法的技术学习记录。'),
-    ]:
-        body = f'<div class="page-heading">{eyebrow(label)}<h1>{title}</h1><p>{intro}</p></div><div class="page-content"><p class="archive-heading">2025 / 01 篇</p>{note_row()}<div class="link-list"><a href="/projects/">查看项目实践 ↗</a><a href="/archives/">按时间归档 ↗</a><a href="/tags/">标签 ↗</a></div></div>'
+    indexes = [
+        ('/list/', '学习与记录', 'FIELD NOTES', '沿着项目中的状态、数据与动作，记录系统架构与机器人算法的学习。', NOTES),
+        ('/archives/', '笔记归档', 'ARCHIVE', '按时间回看工程与学习记录。', NOTES),
+        ('/categories/技术/', '技术笔记', 'CATEGORY / ENGINEERING', '机器人与算法的工程、学习记录。', NOTES),
+    ]
+    for year in sorted({note['date'][:4] for note in NOTES}, reverse=True):
+        year_notes = [note for note in NOTES if note['date'].startswith(year)]
+        indexes.append((f'/archives/{year}/', f'{year} 年笔记', f'ARCHIVE / {year}', '这一年的机器人与算法记录。', year_notes))
+    for month in sorted({note['date'][:7] for note in NOTES}, reverse=True):
+        indexes.append((f'/archives/{month.replace("-", "/")}/', f'{month[:4]} 年 {int(month[5:])} 月', 'ARCHIVE / ' + month.replace('-', '.'), '这个月的工程与学习记录。', [note for note in NOTES if note['date'].startswith(month)]))
+    all_tags = list(dict.fromkeys(tag for note in NOTES for tag in note['tags']))
+    for tag in all_tags:
+        indexes.append((f'/tags/{tag}/', tag, 'TAG / ' + tag, f'与{tag}相关的工程与学习记录。', [note for note in NOTES if tag in note['tags']]))
+    for path, title, label, intro, notes in indexes:
+        groups = []
+        for year in sorted({note['date'][:4] for note in notes}, reverse=True):
+            group = [note for note in notes if note['date'].startswith(year)]
+            groups.append(f'<section class="note-year"><h2 class="archive-heading">{year} / {len(group)} 篇</h2>{"".join(note_row(note) for note in group)}</section>')
+        body = f'<div class="page-heading">{eyebrow(label)}<h1>{esc(title)}</h1><p>{esc(intro)}</p></div><div class="page-content">{"".join(groups)}<div class="link-list"><a href="/projects/">查看项目实践 ↗</a><a href="/archives/">按时间归档 ↗</a><a href="/tags/">标签 ↗</a></div></div>'
         write_page(path, title, intro, body, 'notes')
     for path, title, label, links in [
-        ('/tags/', '标签', 'TAGS', [('机器人', '/tags/机器人/', '1 篇')]),
-        ('/categories/', '分类', 'CATEGORIES', [('技术笔记', '/categories/技术/', '1 篇')]),
+        ('/tags/', '标签', 'TAGS', [(tag, f'/tags/{tag}/', str(sum(tag in note['tags'] for note in NOTES)) + ' 篇') for tag in all_tags]),
+        ('/categories/', '分类', 'CATEGORIES', [('技术笔记', '/categories/技术/', f'{len(NOTES)} 篇')]),
     ]:
         rows = ''.join(f'<a class="note-row" href="{url}"><span class="note-date">{count}</span><h2 class="note-title">{name}</h2><span aria-hidden="true">→</span></a>' for name, url, count in links)
         write_page(path, title, '浏览机器人工程学习笔记。', f'<div class="page-heading">{eyebrow(label)}<h1>{title}</h1><p>从主题出发，浏览学习记录。</p></div><div class="page-content">{rows}<div class="link-list"><a href="/list/">全部笔记 ↗</a><a href="/projects/">项目实践 ↗</a></div></div>', 'notes')
-    write_page('/tags/求之实习/', '求之实习', 'DISCOVER Robotics 实习经历与仿真平台开发。', f'<div class="page-heading">{eyebrow("EXPERIENCE / DISCOVER ROBOTICS")}<h1>求之科技实习</h1><p>参与 MuJoCo、3DGS 与 ROS 2 仿真平台开发的经历。</p></div><div class="page-content"><p class="section-intro">相关经历已整理到关于页，项目实践可在项目列表中浏览。</p><div class="link-list"><a href="/about/#experience">查看实习经历 ↗</a><a href="/projects/">全部项目 ↗</a></div></div>', 'about')
-    body = f'<div class="page-heading">{eyebrow("RECENT UPDATES")}<h1>最近更新</h1><p>项目与学习记录的最近整理。</p></div><div class="page-content"><p class="archive-heading">2026.10.31 / 项目与个人经历整理</p>{"".join(project_row(p) for p in PROJECTS)}<p class="archive-heading" style="margin-top:40px">2025 / 学习笔记</p>{note_row()}</div>'
+    write_page('/tags/求之实习/', '求之实习', 'DISCOVER Robotics 实习经历与仿真平台开发。', f'<div class="page-heading">{eyebrow("EXPERIENCE / DISCOVER ROBOTICS")}<h1>求之科技实习</h1><p>参与 MuJoCo、3DGS 与 ROS 2 仿真平台开发的经历。</p></div><div class="page-content"><p class="section-intro">工作内容与公开项目入口已整理到独立的实习经历页。</p><div class="link-list"><a href="/experience/discover/">查看实习经历 ↗</a><a href="/projects/">全部项目 ↗</a></div></div>', 'about')
+    body = f'<div class="page-heading">{eyebrow("RECENT UPDATES")}<h1>最近更新</h1><p>项目与学习记录的最近整理。</p></div><div class="page-content"><p class="archive-heading">工程与学习笔记</p>{"".join(note_row(note) for note in NOTES)}<p class="archive-heading updates-projects">2026.10.31 / 项目与个人经历整理</p>{"".join(project_row(p) for p in PROJECTS)}</div>'
     write_page('/recent-updates/', '最近更新', '近期整理的机器人仿真与算法项目。', body)
 
 

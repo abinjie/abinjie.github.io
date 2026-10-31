@@ -13,8 +13,8 @@
   <title>轮腿机器狗的沙地仿真 · 宾杰</title>
   <link rel="canonical" href="https://abinjie.github.io/projects/mpm/">
   <link rel="icon" type="image/svg+xml" href="/assets/mark.svg">
-  <link rel="stylesheet" href="/assets/site.css?v=dc90eacbf418">
-  <script src="/assets/site.js?v=dc90eacbf418" defer></script>
+  <link rel="stylesheet" href="/assets/site.css?v=042ee1f13586">
+  <script src="/assets/site.js?v=042ee1f13586" defer></script>
 </head>
 <body id="top">
   <a class="skip-link" href="#main">跳到正文</a>
@@ -24,8 +24,8 @@
     <a class="header-contact" href="mailto:binjie6707@gmail.com">联系我 <span aria-hidden="true">↗</span></a>
   </header>
   <main id="main" class="wrap"><div class="page-heading"><a class="crumb" href="/projects/">← 全部项目</a><div class="eyebrow">PROJECT 02 / 物理仿真</div><h1>轮腿机器狗的沙地仿真</h1><p>构建约 200 万粒子的沙地环境，优化求解性能，评测沉陷、打滑与颗粒扰动下的运控表现。</p><div class="page-kicker">2026 · 实习项目</div></div>
-        <div class="detail-layout"><article class="prose"><h2>项目背景</h2><p>基于 Newton MPM 构建约 200 万粒子的沙地仿真环境，接入轮腿机器狗运控模型，用于复杂接触条件下的鲁棒性评测与 Demo。</p><h2>我的工作</h2><h3>减少无效计算</h3><p>通过非活跃网格裁剪，减少仿真过程中不参与有效计算的网格开销。</p><h3>优化数据访问</h3><p>优化粒子—网格访存与中间缓存复用，并结合求解参数调优改善单步耗时和显存占用。</p><h3>接入运控评测</h3><p>接入轮腿机器狗运控模型，围绕沉陷、打滑和颗粒扰动开展鲁棒性评测与演示验证。</p><h2>链路概览</h2><div class="flow"><div class="flow-step"><span>01</span>沙地粒子环境</div><div class="flow-step"><span>02</span>MPM 物理求解</div><div class="flow-step"><span>03</span>运控模型接入</div><div class="flow-step"><span>04</span>鲁棒性评测</div></div><h2>项目结果</h2><div class="metrics"><div class="metric"><strong>≈ 200 万</strong><span>沙地粒子规模</span></div><div class="metric"><strong>120 → 75 ms</strong><span>单步耗时</span></div><div class="metric"><strong>≈ 18%</strong><span>显存占用降低</span></div></div><p>该项目测试条件下，单步耗时由约 120 ms 降至 75 ms，仿真吞吐提升至约 1.6 倍，显存占用降低约 18%。</p><div class="callout">性能数据来自该项目的特定粒子规模与测试环境，属于项目内前后对比，不作为跨硬件或跨场景的通用基准。</div></article>
-        <aside class="detail-aside" aria-label="项目信息"><h2>FOCUS</h2><p>物理仿真</p><h2>STACK</h2><div class="tags"><span class="tag">Newton MPM</span><span class="tag">颗粒仿真</span><span class="tag">性能优化</span></div><h2>MORE</h2><a href="/experience/huazhijian/">相关实习经历 ↗</a><a href="mailto:binjie6707@gmail.com">交流这个项目 ↗</a></aside></div>
+        <div class="detail-layout"><article class="prose"><section id="background"><h2>项目背景</h2><p>基于 Newton MPM 构建约 200 万粒子的沙地仿真环境，接入轮腿机器狗运控模型，用于复杂接触条件下的鲁棒性评测与 Demo。</p></section><section id="contribution"><h2>我的工作</h2><h3>减少无效计算</h3><p>通过非活跃网格裁剪，减少仿真过程中不参与有效计算的网格开销。</p><h3>优化数据访问</h3><p>优化粒子—网格访存与中间缓存复用，并结合求解参数调优改善单步耗时和显存占用。</p><h3>接入运控评测</h3><p>接入轮腿机器狗运控模型，围绕沉陷、打滑和颗粒扰动开展鲁棒性评测与演示验证。</p></section><section id="flow"><h2>链路概览</h2><div class="flow"><div class="flow-step"><span>01</span>沙地粒子环境</div><div class="flow-step"><span>02</span>MPM 物理求解</div><div class="flow-step"><span>03</span>运控模型接入</div><div class="flow-step"><span>04</span>鲁棒性评测</div></div></section><section id="results"><h2>项目结果</h2><div class="metrics"><div class="metric"><strong>≈ 200 万</strong><span>沙地粒子规模</span></div><div class="metric"><strong>120 → 75 ms</strong><span>单步耗时</span></div><div class="metric"><strong>≈ 18%</strong><span>显存占用降低</span></div></div><p>该项目测试条件下，单步耗时由约 120 ms 降至 75 ms，仿真吞吐提升至约 1.6 倍，显存占用降低约 18%。</p><div class="callout">性能数据来自该项目的特定粒子规模与测试环境，属于项目内前后对比，不作为跨硬件或跨场景的通用基准。</div></section></article>
+        <aside class="detail-aside" aria-label="项目信息"><h2>FOCUS</h2><p>物理仿真</p><h2>STACK</h2><div class="tags"><span class="tag">Newton MPM</span><span class="tag">颗粒仿真</span><span class="tag">性能优化</span></div><h2>ON THIS PAGE</h2><a href="#background">项目背景 ↓</a><a href="#contribution">我的工作 ↓</a><a href="#results">项目结果 ↓</a><h2 class="aside-more">MORE</h2><a href="/experience/huazhijian/">相关实习经历 ↗</a><a href="mailto:binjie6707@gmail.com">交流这个项目 ↗</a></aside></div>
         <div class="project-next"><a href="/projects/">← 返回全部项目</a><a href="/projects/roboarena/">下一个：RoboArena 模型测评平台 →</a></div></main>
   <footer class="site-footer wrap">
     <div><a class="footer-name" href="/">宾杰 <span>/</span> BINJIE</a><p>在仿真中构建，在真实世界中验证。</p></div>
