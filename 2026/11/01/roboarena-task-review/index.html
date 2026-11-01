@@ -34,7 +34,7 @@
     <nav aria-label="主导航"><a href="/">首页</a><a href="/projects/">项目</a><a href="/list/" aria-current="page">笔记</a><a href="/about/">关于</a></nav>
     <a class="header-contact" href="mailto:binjie6707@gmail.com">联系我 <span aria-hidden="true">↗</span></a>
   </header>
-  <main id="main" class="wrap"><div class="page-heading"><a class="crumb" href="/list/">← 全部笔记</a><div class="eyebrow">FIELD NOTES / ENGINEERING</div><h1>RoboArena 项目复盘：一次机械臂任务如何完成闭环测评</h1><p>以抓取放置任务为流程示例，复盘端云协同的状态、观测、动作与评测链路，以及 MimicGen 数据生成如何接回策略迭代。</p><div class="article-date">发布于 <time datetime="2026-11-01">2026-11-01</time> <span>更新于 <time datetime="2026-11-01">2026-11-01</time></span></div><div class="tags"><span class="tag">机器人</span><span class="tag">模型评测</span><span class="tag">数据生成</span></div></div>
+  <main id="main" class="wrap"><div class="page-heading"><a class="crumb" href="/list/">← 全部笔记</a><div class="eyebrow">FIELD NOTES / ENGINEERING</div><h1>RoboArena 项目复盘：一次机械臂任务如何完成闭环测评</h1><p>以抓取放置任务为流程示例，复盘端云协同的状态、观测、动作与评测链路，以及 MimicGen 数据生成如何接回策略迭代。</p><div class="article-date">发布于 <time datetime="2026-02-15">2026-02-15</time> <span>更新于 <time datetime="2026-02-15">2026-02-15</time></span></div><div class="tags"><span class="tag">机器人</span><span class="tag">模型评测</span><span class="tag">数据生成</span></div></div>
         <div class="detail-layout article-layout"><article class="prose"><p>一条“把物体放到目标区域”的指令，最终需要落到机械臂的运动、夹爪的开合，以及物体在环境中的真实状态变化上。模型预测出动作之后，环境有没有按预期改变？这次执行是否完成了任务？失败后还能否找到原因？这些问题，决定了一套模型推理服务能否成为可用的测评系统。</p>
 <p>2025 年 9 月至 12 月，我在实习中参与构建了 RoboArena：基于 Isaac Sim，连接本地物理仿真、云端 3DGS 渲染与模型推理，为机械臂操作任务提供闭环测评环境。我的主要工作围绕分布式测评流程、仿真—渲染—决策—控制链路，以及服务部署与模型对比展开。</p>
 <div class="callout">本文用“抓取指定物体并放置到目标区域”串起整个流程。它是说明系统工作方式的任务示例，配图为项目架构示意；文中不对应某次实验的逐帧回放，也不报告尚未整理的成功率、模型排名和运行延迟。</div>

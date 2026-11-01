@@ -34,7 +34,7 @@
     <nav aria-label="主导航"><a href="/">首页</a><a href="/projects/">项目</a><a href="/list/" aria-current="page">笔记</a><a href="/about/">关于</a></nav>
     <a class="header-contact" href="mailto:binjie6707@gmail.com">联系我 <span aria-hidden="true">↗</span></a>
   </header>
-  <main id="main" class="wrap"><div class="page-heading"><a class="crumb" href="/list/">← 全部笔记</a><div class="eyebrow">FIELD NOTES / ENGINEERING</div><h1>从仿真状态到机器人动作：RoboArena 的闭环链路</h1><p>沿着状态、视觉观测、动作与反馈，拆解本地物理仿真、云端 3DGS 渲染和 VLA 推理如何连接。</p><div class="article-date">发布于 <time datetime="2026-10-31">2026-10-31</time> <span>更新于 <time datetime="2026-10-31">2026-10-31</time></span></div><div class="tags"><span class="tag">机器人</span><span class="tag">仿真架构</span><span class="tag">模型评测</span></div></div>
+  <main id="main" class="wrap"><div class="page-heading"><a class="crumb" href="/list/">← 全部笔记</a><div class="eyebrow">FIELD NOTES / ENGINEERING</div><h1>从仿真状态到机器人动作：RoboArena 的闭环链路</h1><p>沿着状态、视觉观测、动作与反馈，拆解本地物理仿真、云端 3DGS 渲染和 VLA 推理如何连接。</p><div class="article-date">发布于 <time datetime="2026-01-15">2026-01-15</time> <span>更新于 <time datetime="2026-01-15">2026-01-15</time></span></div><div class="tags"><span class="tag">机器人</span><span class="tag">仿真架构</span><span class="tag">模型评测</span></div></div>
         <div class="detail-layout article-layout"><article class="prose"><p>RoboArena 是我在实习期间参与构建的机器人仿真与模型测评平台。它基于 Isaac Sim，面向 Franka / UR5 操作任务，将本地物理仿真、云端 3DGS 渲染和 VLA 模型推理连接起来。这篇笔记沿着一次交互的数据流，说明各个模块的职责，以及“闭环”具体指什么。</p>
 <h2 id="state">01 · 从仿真状态开始</h2>
 <p>链路的起点是本地 Isaac Sim。它负责物理仿真与机器人动力学，维护任务执行中的机器人和环境状态。状态进入渲染服务后，才成为下一步视觉观测的依据。</p>

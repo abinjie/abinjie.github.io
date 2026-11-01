@@ -2,8 +2,8 @@
   {
     "path": "/2026/11/01/roboarena-task-review/",
     "title": "RoboArena 项目复盘：一次机械臂任务如何完成闭环测评",
-    "date": "2026-11-01",
-    "updated": "2026-11-01",
+    "date": "2026-02-15",
+    "updated": "2026-02-15",
     "related_project": "roboarena",
     "kind": "工程笔记",
     "summary": "以抓取放置任务为流程示例，复盘端云协同的状态、观测、动作与评测链路，以及 MimicGen 数据生成如何接回策略迭代。",
@@ -13,8 +13,8 @@
   {
     "path": "/2026/10/31/roboarena-loop/",
     "title": "从仿真状态到机器人动作：RoboArena 的闭环链路",
-    "date": "2026-10-31",
-    "updated": "2026-10-31",
+    "date": "2026-01-15",
+    "updated": "2026-01-15",
     "related_project": "roboarena",
     "kind": "工程笔记",
     "summary": "沿着状态、视觉观测、动作与反馈，拆解本地物理仿真、云端 3DGS 渲染和 VLA 推理如何连接。",
