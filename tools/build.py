@@ -203,7 +203,8 @@ def project_pages():
         is_roboarena = p['slug'] == 'roboarena'
         case = roboarena_case() if is_roboarena else ''
         overview = '' if is_roboarena else f'<section id="flow"><h2>链路概览</h2><div class="flow">{flow}</div></section>'
-        related_note = '<div class="related-note">工程笔记：<a href="/2026/10/31/roboarena-loop/">从仿真状态到机器人动作：RoboArena 的闭环链路 →</a></div>' if is_roboarena else ''
+        project_notes = [entry for entry in NOTES if entry['related_project'] == p['slug']]
+        related_note = '<div class="related-note">相关笔记：<div class="link-list">' + ''.join(f'<a href="{esc(entry["path"])}">{esc(entry["title"])} →</a>' for entry in project_notes) + '</div></div>' if project_notes else ''
         toc = '<a href="#background">项目背景 ↓</a>' + ('<a href="#architecture">系统架构 ↓</a><a href="#decisions">模块职责 ↓</a>' if is_roboarena else '') + '<a href="#contribution">我的工作 ↓</a><a href="#results">项目结果 ↓</a>'
         body = f'''<div class="page-heading"><a class="crumb" href="/projects/">← 全部项目</a>{eyebrow('PROJECT ' + p['number'] + ' / ' + p['category'])}<h1>{esc(p['title'])}</h1><p>{esc(p['summary'])}</p><div class="page-kicker">{esc(p['period'])}</div></div>
         <div class="detail-layout"><article class="prose"><section id="background"><h2>项目背景</h2><p>{esc(p['context'])}</p></section>{project_media(p)}{case}<section id="contribution"><h2>我的工作</h2>{work}</section>{overview}<section id="results"><h2>项目结果</h2>{metrics}<p>{esc(p['result'])}</p>{note}</section>{related_note}</article>
@@ -241,6 +242,9 @@ def article():
         dates = f'发布于 <time datetime="{published}">{published}</time> <span>更新于 <time datetime="{updated}">{updated}</time></span>'
         project = next(p for p in PROJECTS if p['slug'] == note['related_project'])
         related = f'<div class="related-note">相关项目：<a href="/projects/{esc(project["slug"])}/">{esc(project["title"])} →</a></div>'
+        companion_notes = [entry for entry in NOTES if entry['related_project'] == note['related_project'] and entry['path'] != note['path']]
+        if companion_notes:
+            related += '<div class="related-note">继续阅读：<div class="link-list">' + ''.join(f'<a href="{esc(entry["path"])}">{esc(entry["title"])} →</a>' for entry in companion_notes) + '</div></div>'
         early_note = '<div class="callout">这是一篇早期学习笔记。文中的优缺点与对比表是概括性整理；实际精度、实时性、计算成本与泛化能力取决于任务、数据、控制器及软硬件实现，不能仅由“端到端”或“传统算法”的分类判断。</div>' if note['path'] == ARTICLE_PATH else ''
         label = 'FIELD NOTES / ENGINEERING' if note['kind'] == '工程笔记' else 'FIELD NOTES / LEARNING'
         body = f'''<div class="page-heading"><a class="crumb" href="/list/">← 全部笔记</a>{eyebrow(label)}<h1>{esc(note['title'])}</h1><p>{esc(note['summary'])}</p><div class="article-date">{dates}</div>{tags(note['tags'])}</div>
